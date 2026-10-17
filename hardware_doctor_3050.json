@@ -1,0 +1,19 @@
+{
+  "platform": "Windows-10-10.0.26300-SP0",
+  "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+  "cpu_count_physical": 8,
+  "cpu_count_logical": 12,
+  "ram_total_gb": 15.68,
+  "ram_available_gb": 1.82,
+  "nvml_active": true,
+  "gpu": {
+    "name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "total_gb": 4.0,
+    "used_gb": 0.554931640625,
+    "source": "nvml",
+    "power_w": 14.029,
+    "temp_c": 57,
+    "sm_clock": 1500,
+    "throttled": false
+  }
+}

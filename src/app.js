@@ -407,9 +407,26 @@
           ['Sim time per episode', fmt(m.sim_time_s_mean, 1) + ' s'], ['LLM tokens/s', m.tokens_per_s_mean ? fmt(m.tokens_per_s_mean, 1) : 'n/a'], ['Energy per episode', m.energy_j_per_episode != null ? fmt(m.energy_j_per_episode) + ' J' : 'n/a'],
           ['Failure breakdown', Object.keys(m.failure_breakdown).length ? Object.entries(m.failure_breakdown).map(([k, v]) => `${k}: ${v}`).join(', ') : 'none']]
           .map(([k, v]) => h('div', { class: 'row' }, h('div', { class: 'lbl' }, k), h('span', { class: 'val' }, v)))),
+      h('h3', { class: 'section' }, 'Reproduce command'),
+      h('div', { class: 'card mono', style: 'padding:10px; font-size:12px; margin-bottom:12px; word-break:break-all;' },
+        `opai run --task ${c.task} --policy ${c.policy} --agent ${c.agent} --perception ${c.perception} --verifier ${c.verifier} --perturb ${c.perturb} --mode ${c.mode} --budget ${c.budget} --episodes ${m.episodes} --seed ${c.seed}`),
       h('div', { class: 'actions' },
         h('button', { class: 'btn gray', onclick: () => { S.selected = null; S.detail = null; render(); } }, 'Back'),
-        h('button', { class: 'btn', onclick: async () => { const x = await window.opai.exportCard(r.id); if (x.ok) alert('Saved to ' + x.path); else if (x.error) alert(x.error); } }, 'Export Budget Card')));
+        h('button', { class: 'btn', onclick: () => {
+          const cmd = `opai run --task ${c.task} --policy ${c.policy} --agent ${c.agent} --perception ${c.perception} --verifier ${c.verifier} --perturb ${c.perturb} --mode ${c.mode} --budget ${c.budget} --episodes ${m.episodes} --seed ${c.seed}`;
+          navigator.clipboard.writeText(cmd);
+          alert('Copied reproduce command to clipboard!');
+        } }, 'Copy CLI Command'),
+        h('button', { class: 'btn', onclick: async () => { const x = await window.opai.exportCard(r.id); if (x.ok) alert('Saved to ' + x.path); else if (x.error) alert(x.error); } }, 'Export Budget Card'),
+        h('button', { class: 'btn gray', onclick: () => {
+          const blob = new Blob([JSON.stringify(r, null, 2)], { type: 'application/json' });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `${r.id}_run.json`;
+          a.click();
+          URL.revokeObjectURL(url);
+        } }, 'Export run.json')));
   }
 
   // ---------- experiments ----------

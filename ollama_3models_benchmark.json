@@ -1,0 +1,53 @@
+{
+  "llama3.2:1b": {
+    "model": "llama3.2:1b",
+    "episodes": 20,
+    "successes": 0,
+    "tsr": 0.0,
+    "tsr_ci": [
+      0.0,
+      0.16113012549493322
+    ],
+    "latency_p50_ms": 577.2499999984575,
+    "latency_p95_ms": 608.3953350003867,
+    "tok_per_s_mean": 99.89705734954615,
+    "vram_device_peak_gb": 1.97,
+    "vram_ollama_peak_gb": 1.2701757811009884,
+    "ram_process_peak_gb": 0.201,
+    "elapsed_s": 23.0
+  },
+  "gemma2:2b": {
+    "model": "gemma2:2b",
+    "episodes": 20,
+    "successes": 20,
+    "tsr": 1.0,
+    "tsr_ci": [
+      0.8388698745050667,
+      1.0
+    ],
+    "latency_p50_ms": 714.5583999990777,
+    "latency_p95_ms": 751.3209199965786,
+    "tok_per_s_mean": 69.53352517112496,
+    "vram_device_peak_gb": 2.356,
+    "vram_ollama_peak_gb": 1.580859374254942,
+    "ram_process_peak_gb": 0.204,
+    "elapsed_s": 24.5
+  },
+  "qwen2.5:3b": {
+    "model": "qwen2.5:3b",
+    "episodes": 20,
+    "successes": 20,
+    "tsr": 1.0,
+    "tsr_ci": [
+      0.8388698745050667,
+      1.0
+    ],
+    "latency_p50_ms": 469.0851000013936,
+    "latency_p95_ms": 492.5950400065631,
+    "tok_per_s_mean": 70.59229120514141,
+    "vram_device_peak_gb": 2.567,
+    "vram_ollama_peak_gb": 1.8468847647309303,
+    "ram_process_peak_gb": 0.204,
+    "elapsed_s": 19.2
+  }
+}

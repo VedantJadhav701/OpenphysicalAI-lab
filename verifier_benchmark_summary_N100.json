@@ -1,0 +1,97 @@
+{
+  "V0": {
+    "episodes": 100,
+    "successes": 74,
+    "tsr": 0.74,
+    "tsr_ci": [
+      0.6462882736813838,
+      0.8159542187301354
+    ],
+    "latency_ms": {
+      "p50": 0.021699997887481004,
+      "p95": 0.030619995959568765,
+      "p99": 0.046908003278076635,
+      "mean": 0.02237880994893825
+    },
+    "deadline_miss_rate": 0.0,
+    "staleness_s_mean": 0.0,
+    "plans_per_episode": 2.69,
+    "actions_per_episode": 3.47,
+    "sim_time_s_mean": 13.694,
+    "failures_injected": 138,
+    "detection_rate": 0.9710144927536232,
+    "recovery_rate": 0.5223880597014925,
+    "diagnosis_accuracy": 0.8582089552238806,
+    "false_alarm_rate": 0.0,
+    "missed_failure_rate": 0.0,
+    "failure_breakdown": {
+      "recovery_exhausted": 26
+    },
+    "tokens_per_s_mean": null,
+    "energy_j_per_episode": 5.01
+  },
+  "V1": {
+    "episodes": 100,
+    "successes": 68,
+    "tsr": 0.68,
+    "tsr_ci": [
+      0.5833719774632081,
+      0.7633098918454312
+    ],
+    "latency_ms": {
+      "p50": 0.021500003640539944,
+      "p95": 0.03234500291000586,
+      "p99": 0.04908399998385004,
+      "mean": 0.02229206366459876
+    },
+    "deadline_miss_rate": 0.0,
+    "staleness_s_mean": 0.0,
+    "plans_per_episode": 2.52,
+    "actions_per_episode": 3.28,
+    "sim_time_s_mean": 12.915,
+    "failures_injected": 124,
+    "detection_rate": 0.8790322580645161,
+    "recovery_rate": 0.5137614678899083,
+    "diagnosis_accuracy": 0.8532110091743119,
+    "false_alarm_rate": 0.0,
+    "missed_failure_rate": 0.036585365853658534,
+    "failure_breakdown": {
+      "recovery_exhausted": 20,
+      "placement_or_grasp": 12
+    },
+    "tokens_per_s_mean": null,
+    "energy_j_per_episode": 5.064
+  },
+  "V2": {
+    "episodes": 100,
+    "successes": 73,
+    "tsr": 0.73,
+    "tsr_ci": [
+      0.6356769977376873,
+      0.8073053908233518
+    ],
+    "latency_ms": {
+      "p50": 0.02085000232909806,
+      "p95": 0.028049997126800008,
+      "p99": 0.08876000138116118,
+      "mean": 0.022379323496365976
+    },
+    "deadline_miss_rate": 0.0,
+    "staleness_s_mean": 0.0,
+    "plans_per_episode": 2.66,
+    "actions_per_episode": 3.46,
+    "sim_time_s_mean": 13.640999999999998,
+    "failures_injected": 137,
+    "detection_rate": 0.9635036496350365,
+    "recovery_rate": 0.5151515151515151,
+    "diagnosis_accuracy": 0.8560606060606061,
+    "false_alarm_rate": 0.0,
+    "missed_failure_rate": 0.002890173410404624,
+    "failure_breakdown": {
+      "recovery_exhausted": 26,
+      "placement_or_grasp": 1
+    },
+    "tokens_per_s_mean": null,
+    "energy_j_per_episode": 5.232
+  }
+}
