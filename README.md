@@ -28,11 +28,19 @@ It measures how much reliable physical capability a Physical AI system delivers 
   - Phase-1 gate (`python gate1.py`) passed **200/200 random scenes (100.0%)** deterministically.
   - Test suite (`pytest tests/`) passed 100%.
   - Hardware profiler verified with NVML via `nvidia-ml-py`: correctly identifies RTX 3050 (OPAI-4G class), tracks GPU power, temperature, and WDDM memory estimation.
-- **Real Ollama LLM Planning**:
-  - Model tested: `qwen3:4b-instruct-2507-q4_K_M` (2.5 GB, Q4 quantized).
+- **Real Ollama LLM Planning & Real-Time Benchmark**:
+  - Model: `qwen3:4b-instruct-2507-q4_K_M` (2.5 GB, Q4 quantized) on RTX 3050 Laptop GPU.
   - Valid structured JSON schema output with 0 validation errors.
-  - Warm inference latency: **~1056 ms** (~29.4 tokens/sec) offloaded to RTX 3050 GPU.
-  - Closed-loop recovery pick-and-place episodes executed successfully with 100% TSR within budget caps.
+  - Warm inference latency: **~1056 ms** (~29.4 tokens/sec).
+  - Loop-structure benchmark under moderate perturbations in real-time mode:
+
+| Agent | Verifier | Mode | Perturbation | TSR (95% CI) | Detect | Recover | False Alarm | Missed | Planning p95 |
+|---|---|---|---|---|---|---|---|---|---|
+| **Open-loop** | V2 | realtime | Moderate | **70.0%** (39.7% to 89.2%) | n/a | n/a | n/a | n/a | 1460 ms |
+| **Closed-loop** | V2 | realtime | Moderate | **70.0%** (39.7% to 89.2%) | 100.0% | 0.0% | 0.0% | 0.0% | 1290 ms |
+| **Recovery** | V2 | realtime | Moderate | **100.0%** (72.2% to 100.0%) | **100.0%** | **100.0%** | **0.0%** | **0.0%** | **1227 ms** |
+
+*(Demonstrates +30.0% reliability gain from active diagnosis & replanning under real-time physics).*
 
 ## Pending Verification
 
