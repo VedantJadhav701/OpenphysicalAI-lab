@@ -3,11 +3,13 @@ device memory / power / temperature / throttling. Reports what was actually meas
 estimates. VRAM per process is only available where the driver exposes it (Linux; usually not on Windows WDDM)."""
 from __future__ import annotations
 
+import json
 import os
 import shutil
 import subprocess
 import threading
 import time
+import urllib.request
 from dataclasses import dataclass, field
 from typing import Dict, List, Optional
 

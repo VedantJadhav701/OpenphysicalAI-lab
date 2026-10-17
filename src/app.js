@@ -248,9 +248,8 @@
     );
 
     const pokeBar = S.running ? h('div', { class: 'poke-bar' },
-      h('button', { class: 'btn sm gray', onclick: () => { pushLog('Teleop: Forced grasp slip injected'); call('poke', { action: 'slip' }).catch(() => {}); } }, 'Force Slip'),
-      h('button', { class: 'btn sm gray', onclick: () => { pushLog('Teleop: Nudged target cube (+3cm)'); call('poke', { action: 'nudge' }).catch(() => {}); } }, 'Nudge Cube (+3cm)'),
-      h('button', { class: 'btn sm gray', onclick: () => { pushLog('Teleop: Step simulation'); call('poke', { action: 'step' }).catch(() => {}); } }, 'Step Sim')
+      h('button', { class: 'btn sm gray', onclick: () => { pushLog('Teleop: Forced grasp slip triggered'); call('poke', { action: 'slip' }); } }, '💥 Force Grasp Slip'),
+      h('button', { class: 'btn sm gray', onclick: () => { pushLog('Teleop: Nudged target cube (+4.5cm)'); call('poke', { action: 'nudge' }); } }, '👉 Nudge Cube (+4.5cm)')
     ) : null;
 
     const side = h('div', { class: 'live' },

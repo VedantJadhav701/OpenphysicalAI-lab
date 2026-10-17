@@ -25,8 +25,8 @@ from .stats import wilson_interval
 SLOTS = [(-0.04, -0.04), (0.04, -0.04), (0.0, 0.04), (0.04, 0.04), (-0.04, 0.04)]
 LIFT_Z = 0.08
 HELD_RANGE = (0.020, 0.042)
-PICK_LEAD_S = 1.3
-VERSION = "0.2.0"
+PICK_LEAD_S = 1.05   # Calibrated to match 0.65s horizontal move + 0.40s descent to near_gripper capture zone
+VERSION = "0.2.1"
 
 
 class Cancelled(Exception):
@@ -69,27 +69,35 @@ class RunConfig:
         return base
 
 
-_active_run = {"w": None, "inj": None}
+_active_run = {"w": None, "inj": None, "pokes": []}
 
 
 def poke(action: str) -> bool:
-    w = _active_run.get("w")
-    if not w:
+    """Queues an interactive user perturbation to be executed safely on the MuJoCo owner thread."""
+    if not _active_run.get("w"):
         return False
-    if action == "slip":
-        w.set_gripper(0.0)
-        w.settle(0.2)
-        return True
-    elif action == "nudge":
-        for o in w.spec.objects:
-            p = w.obj_pos(o.oid)
-            w.set_obj_pos(o.oid, (p[0], p[1] + 0.03, p[2]))
-            break
-        return True
-    elif action == "step":
-        w.step(20)
+    if action in ("slip", "nudge", "step"):
+        _active_run["pokes"].append(action)
         return True
     return False
+
+
+def _drain_pokes(w: World, inj: Optional[Injector] = None):
+    while _active_run["pokes"]:
+        action = _active_run["pokes"].pop(0)
+        if action == "slip":
+            w.set_gripper(0.0)
+            if inj is not None:
+                inj.log.append({"type": "grasp_slip", "step": w.sim_steps, "manual": True})
+        elif action == "nudge":
+            for o in w.spec.objects:
+                if not w.in_container(o.oid):
+                    w.teleport(o.oid, 0.0, 0.045)
+                    if inj is not None:
+                        inj.log.append({"type": "object_displaced", "step": w.sim_steps, "object": o.oid, "manual": True})
+                    break
+        elif action == "step":
+            w.step(20)
 
 
 def make_planner(cfg: RunConfig):
@@ -101,23 +109,27 @@ def make_planner(cfg: RunConfig):
 
 
 class FrameEmitter:
-    def __init__(self, world_ref: Dict, emit: Optional[Callable], cancel, enabled: bool, min_dt: float = 0.12):
-        self.w, self.emit, self.cancel, self.enabled, self.min_dt = world_ref, emit, cancel, enabled, min_dt
+    def __init__(self, world_ref: Dict, emit: Optional[Callable], cancel, enabled: bool, camera_mode: str = "3d", min_dt: float = 0.10):
+        self.w, self.emit, self.cancel, self.enabled = world_ref, emit, cancel, enabled
+        self.camera_mode, self.min_dt = camera_mode, min_dt
         self.last = 0.0
+        self.tick_count = 0
         self._last_gpu = 0.0
         self.extra: Dict = {}
 
     def __call__(self):
         if self.cancel is not None and self.cancel.is_set():
             raise Cancelled()
+        w = self.w["w"]
+        _drain_pokes(w, _active_run.get("inj"))
         if not (self.enabled and self.emit):
             return
         now = time.perf_counter()
         if now - self.last < self.min_dt:
             return
         self.last = now
-        w = self.w["w"]
-        qpos_list = [round(float(q), 3) for q in w.data.qpos[:5]] if hasattr(w, "data") else [0.0, -0.45, 0.82, -0.37, 0.0]
+        self.tick_count += 1
+        qpos_list = [round(float(w.data.qpos[jid]), 2) for jid in w.jid] if hasattr(w, "jid") else [0.0, -0.45, 0.82, -0.37, 0.0]
         extra = {}
         if now - self._last_gpu >= 1.0:
             self._last_gpu = now
@@ -125,15 +137,19 @@ class FrameEmitter:
                 extra["gpu"] = gpu_snapshot()
             except Exception:  # noqa: BLE001
                 pass
-        self.emit({
+        payload = {
             "event": "frame",
             "png": R.png_b64(R.render_3d(w)),
-            "ortho_png": R.png_b64(R.render_2d(w, draw_arm=True)),
             "qpos": qpos_list,
+            "gripper": round(w.finger_closure(), 3),
             "sim_time": round(w.time, 1),
             **extra,
-            **self.extra
-        })
+            **self.extra,
+        }
+        # Only encode 2D orthographic PNG when viewing ortho or every 3rd frame to save CPU
+        if self.camera_mode == "ortho" or self.tick_count % 3 == 1:
+            payload["ortho_png"] = R.png_b64(R.render_2d(w, draw_arm=True))
+        self.emit(payload)
 
 
 def _sim_id(w: World, ws_obj: Dict) -> Optional[str]:
@@ -285,6 +301,8 @@ def run_episode(cfg: RunConfig, seed: int, planner, budget_ms: float, frame_hook
             break
     except Cancelled:
         raise
+    finally:
+        w.close()
     ok = tasks.oracle_success(w, inst)
     if w.time >= inst.time_limit and not ok:
         outcome = "timeout"
@@ -354,7 +372,7 @@ def run(cfg: RunConfig, emit: Optional[Callable[[Dict], None]] = None, cancel=No
     budget_ms = PROFILES[cfg.budget].planning_ms_p95
     fe_holder = {}
     def factory(world_ref):
-        fe = FrameEmitter(world_ref, emit, cancel, cfg.frames)
+        fe = FrameEmitter(world_ref, emit, cancel, cfg.frames, camera_mode=cfg.camera_mode)
         fe_holder["fe"] = fe
         return fe
     prof = Profiler().start()
@@ -375,6 +393,7 @@ def run(cfg: RunConfig, emit: Optional[Callable[[Dict], None]] = None, cancel=No
     finally:
         _active_run["w"] = None
         _active_run["inj"] = None
+        _active_run["pokes"] = []
     pr = prof.stop().as_dict()
     summ = summarize(cfg, eps, pr, gpu is not None)
     return {"id": "run_" + uuid.uuid4().hex[:10], "created": datetime.now(timezone.utc).isoformat(), "version": VERSION,

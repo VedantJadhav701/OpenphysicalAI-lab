@@ -10,24 +10,16 @@ import sys
 
 from . import __version__
 from .budget import Budget, evaluate_budget
-
-
-def _nvidia():
-    if not shutil.which("nvidia-smi"):
-        return None
-    try:
-        out = subprocess.run(
-            ["nvidia-smi", "--query-gpu=name,memory.total,memory.used", "--format=csv,noheader,nounits"],
-            capture_output=True, text=True, timeout=5, check=True,
-        ).stdout.strip().splitlines()[0]
-        name, total, used = [x.strip() for x in out.split(",")]
-        return {"name": name, "vram_total_gb": round(float(total) / 1024, 2), "vram_used_gb": round(float(used) / 1024, 2)}
-    except Exception:
-        return None
+from .profiler import gpu_snapshot
 
 
 def cmd_profile(_args) -> int:
-    info = {"version": __version__, "os": platform.platform(), "python": sys.version.split()[0], "gpu": _nvidia()}
+    info = {
+        "version": __version__,
+        "os": platform.platform(),
+        "python": sys.version.split()[0],
+        "gpu": gpu_snapshot(),
+    }
     print(json.dumps(info, indent=2))
     return 0
 
@@ -69,6 +61,7 @@ def main(argv=None) -> int:
     r.add_argument("--episodes", type=int, default=50)
     r.add_argument("--seed", type=int, default=0)
     r.add_argument("--extra-latency-ms", dest="extra_latency_ms", type=float, default=0.0)
+    r.add_argument("--velocity-lead", dest="velocity_lead", action=argparse.BooleanOptionalAction, default=True)
     r.set_defaults(fn=cmd_run)
     args = p.parse_args(argv)
     return args.fn(args)

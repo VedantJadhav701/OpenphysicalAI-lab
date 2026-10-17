@@ -300,3 +300,13 @@ class World:
         rem = seconds - n * 0.02
         if rem > 0:
             self.step(int(rem / self.model.opt.timestep))
+
+    def close(self):
+        """Clean up 3D GPU renderer and any native OpenGL/EGL context."""
+        r = getattr(self, "_renderer_3d", None)
+        if r is not None and hasattr(r, "close"):
+            try:
+                r.close()
+            except Exception:
+                pass
+            self._renderer_3d = None

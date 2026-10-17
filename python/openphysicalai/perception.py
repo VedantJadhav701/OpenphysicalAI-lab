@@ -168,7 +168,7 @@ class VisionPerception:
     def __init__(self, rng: np.random.Generator, pixel_noise: float = 0.0, enable_velocity_tracker: bool = True):
         self.rng, self.pixel_noise = rng, pixel_noise
         self.enable_velocity_tracker = enable_velocity_tracker
-        self.tracker = TemporalVelocityTracker()
+        self.tracker = TemporalVelocityTracker(alpha=0.80, beta=0.55)
 
     def _detect_raw(self, w: World) -> List[Dict]:
         img = R.render(w, draw_arm=False, rng=self.rng, noise=self.pixel_noise)
@@ -187,29 +187,51 @@ class VisionPerception:
                 wx, wy = -d[:, 0] * R.RES_X, -d[:, 1] * R.RES_Y
                 zc = np.sum((wx + 1j * wy) ** 4)
                 yaw = ((np.angle(zc) - math.pi) / 4) % (math.pi / 2)
-                objs.append({"id": f"obj_{k}", "color": color, "half_size": round(half, 3), "x": round(x, 3), "y": round(y, 3),
-                             "yaw": round(yaw, 3), "in_container": bool(_in_box(x, y, w.spec.container_pos))})
+                objs.append({
+                    "id": f"obj_{k}",
+                    "color": color,
+                    "half_size": round(half, 3),
+                    "x": round(x, 3),
+                    "y": round(y, 3),
+                    "_raw_x": float(x),
+                    "_raw_y": float(y),
+                    "yaw": round(yaw, 3),
+                    "in_container": bool(_in_box(x, y, w.spec.container_pos)),
+                })
                 k += 1
         return objs
 
     def perceive(self, w: World) -> Dict:
         raw_objs = self._detect_raw(w)
+        # Cold-start optical burst: step 100 physics ticks (0.20s) so a 0.02 m/s cube
+        # shifts by 4.0mm (~1.7 pixels), overcoming 2.34mm/px quantization on frame 1.
         if self.enable_velocity_tracker and not self.tracker._tracks:
+            t0 = w.time
             for o in raw_objs:
-                self.tracker.update(o["id"], np.array([o["x"], o["y"], 0.0]), w.time)
-            w.step(20)
-            raw_objs = self._detect_raw(w)
+                self.tracker.update(o["color"] + "_" + o["id"], np.array([o["_raw_x"], o["_raw_y"], 0.0]), t0)
+            if any(np.any(v) for v in w.vel.values()):
+                w.step(100)
+                raw_objs = self._detect_raw(w)
 
         objs: List[Dict] = []
         for o in raw_objs:
+            rx, ry = o.pop("_raw_x"), o.pop("_raw_y")
             d = dict(o)
             if self.enable_velocity_tracker:
-                filt_pos, est_vel = self.tracker.update(o["id"], np.array([o["x"], o["y"], 0.0]), w.time)
-                if abs(est_vel[1]) >= 0.005:
-                    d["velocity_y"] = float(round(est_vel[1], 3))
+                track_key = o["color"] + "_" + o["id"]
+                filt_pos, est_vel = self.tracker.update(track_key, np.array([rx, ry, 0.0]), w.time)
+                d["x"] = round(float(filt_pos[0]), 3)
+                d["y"] = round(float(filt_pos[1]), 3)
+                if abs(est_vel[1]) >= 0.006:
+                    d["velocity_y"] = float(round(est_vel[1], 4))
             objs.append(d)
 
         c = w.spec.container_pos
         tip = w.tip()
-        return {"t": round(w.time, 3), "source": "vision", "container": {"x": c[0], "y": c[1]},
-                "gripper": {"closure": round(w.finger_closure(), 4), "tip": [round(float(v), 3) for v in tip]}, "objects": objs}
+        return {
+            "t": round(w.time, 3),
+            "source": "vision",
+            "container": {"x": c[0], "y": c[1]},
+            "gripper": {"closure": round(w.finger_closure(), 4), "tip": [round(float(v), 3) for v in tip]},
+            "objects": objs,
+        }
