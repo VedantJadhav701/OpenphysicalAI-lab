@@ -91,23 +91,24 @@ def ollama_models(host: str = "http://127.0.0.1:11434") -> Dict:
 class OllamaPlanner:
     track = "planner"
 
-    def __init__(self, model: str, host: str = "http://127.0.0.1:11434", num_predict: int = 256, num_ctx: int = 2048):
+    def __init__(self, model: str, host: str = "http://127.0.0.1:11434", num_predict: int = 192, num_ctx: int = 1024):
         self.model, self.host, self.num_predict, self.num_ctx = model, host, num_predict, num_ctx
         self.name = f"ollama:{model}"
+        self._latency_ema_ms: float = 700.0 if "gemma2" in model else 1100.0
 
     def warmup(self):
         try:
             _http(self.host + "/api/chat", {"model": self.model, "messages": [{"role": "user", "content": "hi"}], "stream": False,
-                                            "options": {"num_predict": 1, "num_ctx": self.num_ctx}, "keep_alive": "30m"}, timeout=300)
+                                            "options": {"num_predict": 1, "num_ctx": self.num_ctx, "num_batch": 128}, "keep_alive": "5m"}, timeout=300)
         except Exception:
             pass
 
-    def plan(self, instruction: str, ws: Dict) -> PlanResult:
+    def plan(self, instruction: str, ws: Dict, extra_latency_ms: float = 0.0) -> PlanResult:
         slim = {"objects": [{k: o[k] for k in ("id", "color", "half_size", "x", "y", "in_container") if k in o} | ({"velocity_y": o["velocity_y"]} if "velocity_y" in o else {})
                             for o in ws["objects"]], "container": ws["container"]}
         body = {
-            "model": self.model, "stream": False, "format": SCHEMA, "keep_alive": "30m",
-            "options": {"temperature": 0, "seed": 0, "num_predict": self.num_predict, "num_ctx": self.num_ctx},
+            "model": self.model, "stream": False, "format": SCHEMA, "keep_alive": "5m",
+            "options": {"temperature": 0, "seed": 0, "num_predict": self.num_predict, "num_ctx": self.num_ctx, "num_batch": 128},
             "messages": [{"role": "system", "content": SYSTEM},
                          {"role": "user", "content": f"Instruction: {instruction}\nWorld state: {json.dumps(slim)}"}],
         }
@@ -117,9 +118,11 @@ class OllamaPlanner:
         except Exception as e:  # noqa: BLE001
             return PlanResult([], (time.perf_counter() - t0) * 1000, error=f"ollama_error: {e}")
         lat = (time.perf_counter() - t0) * 1000
+        self._latency_ema_ms = 0.65 * self._latency_ema_ms + 0.35 * lat
         raw = d.get("message", {}).get("content", "")
         meta = {"eval_count": d.get("eval_count"), "prompt_eval_count": d.get("prompt_eval_count"),
-                "tok_per_s": (d["eval_count"] / (d["eval_duration"] / 1e9)) if d.get("eval_count") and d.get("eval_duration") else None}
+                "tok_per_s": (d["eval_count"] / (d["eval_duration"] / 1e9)) if d.get("eval_count") and d.get("eval_duration") else None,
+                "latency_ema_ms": round(self._latency_ema_ms, 1)}
         try:
             plan = json.loads(raw).get("plan", [])
             if not isinstance(plan, list):

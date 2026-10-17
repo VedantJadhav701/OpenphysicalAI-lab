@@ -204,6 +204,9 @@ class World:
             mujoco.mj_step(self.model, self.data, nstep=1)
             self.sim_steps += 1
 
+    def step_n(self, n: int = 1):
+        self.step(n)
+
     def _conveyor(self):
         tip = self.tip()
         for oid, v in self.vel.items():

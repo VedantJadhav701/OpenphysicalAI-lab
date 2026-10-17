@@ -73,6 +73,20 @@ def gpu_snapshot() -> Optional[Dict]:
     return None
 
 
+def _get_ollama_api_vram_gb(host: str = "http://127.0.0.1:11434") -> float:
+    """Queries Ollama local daemon for exact loaded model VRAM usage."""
+    try:
+        import urllib.request
+        req = urllib.request.Request(f"{host}/api/ps", headers={"Content-Type": "application/json"})
+        with urllib.request.urlopen(req, timeout=0.40) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            models = data.get("models", [])
+            total_vram_bytes = sum(int(m.get("size_vram", 0)) for m in models)
+            return total_vram_bytes / GB
+    except Exception:
+        return 0.0
+
+
 def gpu_process_vram_gb(pids: List[int]) -> Optional[float]:
     """Sum of VRAM attributed to given pids, or None if the driver does not expose it."""
     if not _NVML:
@@ -108,6 +122,7 @@ class ProfileResult:
     samples: int = 0
     duration_s: float = 0.0
     confidence: str = "low"
+    vram_ollama_peak_gb: float = 0.0
 
     def as_dict(self) -> Dict:
         return self.__dict__.copy()
@@ -162,6 +177,9 @@ class Profiler:
                 self._pv_est_unavailable = True
             else:
                 r.vram_process_peak_gb = max(r.vram_process_peak_gb or 0, pv)
+            ov = _get_ollama_api_vram_gb()
+            if ov > 0.0:
+                r.vram_ollama_peak_gb = max(r.vram_ollama_peak_gb, ov)
         self._last_t = now
         r.samples += 1
 
@@ -180,13 +198,22 @@ class Profiler:
         r = self.r
         r.duration_s = round(time.perf_counter() - self._t0, 2)
         if r.vram_device_peak_gb is not None:
-            if self._pv_est_unavailable or r.vram_process_peak_gb is None:
-                r.vram_process_peak_gb = round(max(0.0, r.vram_device_peak_gb - (r.vram_device_baseline_gb or 0)), 3)
-                r.vram_process_source = "estimated: device peak minus baseline"
-                r.confidence = "medium"
-            else:
+            ollama_vram = getattr(r, "vram_ollama_peak_gb", 0.0) or _get_ollama_api_vram_gb()
+            desktop_floor = 0.45
+            wddm_delta = max(0.0, r.vram_device_peak_gb - (r.vram_device_baseline_gb or desktop_floor))
+            
+            if r.vram_process_peak_gb is not None and r.vram_process_peak_gb > 0.1:
                 r.vram_process_source = "nvml per-process"
                 r.confidence = "high"
+            elif ollama_vram > 0.1:
+                # Direct report from Ollama daemon + MuJoCo 3D OpenGL renderer context (~0.18 GB)
+                r.vram_process_peak_gb = round(min(r.vram_device_peak_gb, ollama_vram + 0.18), 3)
+                r.vram_process_source = "ollama /api/ps + 3d gl context"
+                r.confidence = "high"
+            else:
+                r.vram_process_peak_gb = round(wddm_delta, 3)
+                r.vram_process_source = "estimated: device peak minus baseline"
+                r.confidence = "medium"
             r.vram_device_peak_gb = round(r.vram_device_peak_gb, 3)
         else:
             r.confidence = "low"
