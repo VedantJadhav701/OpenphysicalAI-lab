@@ -63,3 +63,26 @@ jobs:
             python/dist/*
             budget_card_run_d93697d792.md
           generate_release_notes: true
+
+  pypi-publish:
+    name: Upload Python package to PyPI
+    needs: release
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/openphysicalai
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+      - name: Build distributions
+        run: |
+          pip install build
+          python -m build python
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          packages-dir: python/dist/
