@@ -122,7 +122,8 @@ async function rpc(cmd, payload = {}) {
 function createWindow() {
   const dark = nativeTheme.shouldUseDarkColors;
   win = new BrowserWindow({
-    width: 1240, height: 820, minWidth: 980, minHeight: 640, show: false,
+    title: 'OpenPhysicalAI Lab',
+    width: 1240, height: 820, minWidth: 980, minHeight: 640, show: true,
     backgroundColor: isMac ? '#00000000' : dark ? '#000000' : '#f2f2f7',
     ...(isMac ? { titleBarStyle: 'hiddenInset', vibrancy: 'sidebar', trafficLightPosition: { x: 18, y: 18 } } : {}),
     ...(isWin ? { titleBarStyle: 'hidden', titleBarOverlay: { color: dark ? '#000000' : '#f2f2f7', symbolColor: dark ? '#ffffff' : '#1c1c1e', height: 40 } } : {}),
@@ -132,6 +133,8 @@ function createWindow() {
   win.webContents.setWindowOpenHandler(({ url }) => { if (/^https:\/\//.test(url)) shell.openExternal(url); return { action: 'deny' }; });
   win.webContents.on('will-navigate', (e, url) => { if (!url.startsWith('file://')) e.preventDefault(); });
   win.loadFile(path.join(__dirname, 'src', 'index.html'));
+  win.show();
+  win.focus();
 }
 
 // ---------- IPC ----------
