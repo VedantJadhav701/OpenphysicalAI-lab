@@ -136,6 +136,7 @@ function createWindow() {
   const dark = nativeTheme.shouldUseDarkColors;
   win = new BrowserWindow({
     title: 'OpenPhysicalAI Lab',
+    icon: path.join(__dirname, 'src', 'logo-icon-1024.png'),
     width: 1240, height: 820, minWidth: 980, minHeight: 640, show: true,
     backgroundColor: isMac ? '#00000000' : dark ? '#000000' : '#f2f2f7',
     ...(isMac ? { titleBarStyle: 'hiddenInset', vibrancy: 'sidebar', trafficLightPosition: { x: 18, y: 18 } } : {}),

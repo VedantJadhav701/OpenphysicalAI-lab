@@ -1,14 +1,25 @@
 <div align="center">
 
-# 🤖 OpenPhysicalAI Lab (`v0.2.1`)
+<img src="logo-horizontal-dark.png" alt="OpenPhysicalAI Lab Logo" width="560" />
+
+<br/><br/>
 
 **Real-Time Embodied AI Simulation, Closed-Loop Failure Recovery & Hardware Budget Benchmarking — Engineered to Run Inside 4 GB VRAM.**
 
+[![PyPI version](https://img.shields.io/pypi/v/openphysicalai?color=blue&label=PyPI%20package)](https://pypi.org/project/openphysicalai/)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Phase-1 Gate](https://img.shields.io/badge/Phase--1_Gate-200%2F200_(100%25)-brightgreen.svg)](#verified-benchmarks--scientific-results)
 [![MuJoCo](https://img.shields.io/badge/MuJoCo-3.16.0_3D_GPU-orange.svg)](#system-architecture)
-[![Hardware Tier](https://img.shields.io/badge/Verified_Tier-OPAI--4G_(RTX_3050_4GB)-76b900.svg)](#community-hardware-leaderboard)
+[![Hardware Tier](https://img.shields.io/badge/Verified_Tier-OPAI--4G_(RTX_3050_4GB)-76b900.svg)](#verified-benchmarks--scientific-results)
 [![Platform](https://img.shields.io/badge/Platform-Windows_11_%7C_Linux_%7C_macOS-informational.svg)](#quick-start)
+
+<br/>
+
+### 🎬 Watch 30-Second Launch Overview
+
+https://github.com/user-attachments/assets/OpenPhysicalAI_Lab_Launch_30s.mp4
+
+<video src="OpenPhysicalAI_Lab_Launch_30s.mp4" controls="controls" width="100%" height="auto"></video>
 
 </div>
 

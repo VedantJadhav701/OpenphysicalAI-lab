@@ -155,6 +155,9 @@
     const env = S.env;
     const kids = [
       sidecarBanner(),
+      h('div', { style: 'margin-bottom:14px;' },
+        h('img', { src: 'logo-horizontal-dark.png', alt: 'OpenPhysicalAI Lab', style: 'max-width:320px; height:auto; display:block;' })
+      ),
       h('h1', { class: 'large' }, 'OpenPhysicalAI Lab'),
       h('p', { class: 'sub' }, 'Real MuJoCo 3D physics, vision perception, and local LLM planners. Measures task success, recovery, latency, and energy under an explicit hardware budget.')
     ];
