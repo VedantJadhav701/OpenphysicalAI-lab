@@ -65,16 +65,19 @@
     tb.textContent = '';
     const g = S.hw && S.hw.gpu;
     const statusDot = S.sidecarDead ? 'off' : (g && g.temp_c >= 82 ? 'warn' : '');
-    tb.append(
-      h('div', { class: 'hw-strip' },
-        h('span', { class: 'hw-dot ' + statusDot }),
-        h('b', null, S.hw ? S.hw.hardware_class : 'OPAI'),
-        g && g.total_gb != null && g.used_gb != null ? `${g.used_gb.toFixed(1)}/${g.total_gb.toFixed(1)} GB VRAM` : 'CPU Mode',
-        g && g.temp_c ? `${fmt(g.temp_c)}C` : null,
-        g && g.power_w ? `${fmt(g.power_w, 0)}W` : null,
-        S.ollama && S.ollama.ok ? `Ollama (${S.ollama.models.length})` : 'Rule Engine'
-      )
-    );
+    const items = [
+      h('span', { class: 'hw-dot ' + statusDot }),
+      h('span', { class: 'hw-item' }, h('b', null, S.hw ? S.hw.hardware_class : 'OPAI-4G')),
+      h('span', { class: 'hw-item' }, g && g.total_gb != null && g.used_gb != null ? `${g.used_gb.toFixed(1)} / ${g.total_gb.toFixed(1)} GB VRAM` : 'CPU Mode'),
+    ];
+    if (g && g.temp_c != null) {
+      items.push(h('span', { class: 'hw-item' }, `${fmt(g.temp_c)}°C`));
+    }
+    if (g && g.power_w != null) {
+      items.push(h('span', { class: 'hw-item' }, `${fmt(g.power_w, 0)}W`));
+    }
+    items.push(h('span', { class: 'hw-item' }, S.ollama && S.ollama.ok ? `Ollama (${S.ollama.models.length})` : 'Rule Engine'));
+    tb.append(h('div', { class: 'hw-strip' }, ...items));
   }
 
   function renderNav() {
@@ -319,6 +322,10 @@
       return;
     }
     if (ev.event === 'frame') {
+      if (ev.gpu && S.hw) {
+        S.hw.gpu = ev.gpu;
+        renderTopbar();
+      }
       S.frame = ev;
       const im = $('#live');
       if (im) {
@@ -546,7 +553,17 @@
     $('#sideFoot').textContent = `v${S.info.version}  Apache-2.0`;
     renderNav(); renderTopbar(); render();
     S.env = await window.opai.envStatus(); render();
-    if (S.env.ok) bootSidecar();
+    if (S.env.ok) await bootSidecar();
+
+    // Live hardware telemetry refresh
+    setInterval(async () => {
+      if (!S.sidecarDead && S.hello) {
+        try {
+          S.hw = await call('hardware');
+          renderTopbar();
+        } catch (_) {}
+      }
+    }, 2500);
   }
   init();
 })();

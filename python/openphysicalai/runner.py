@@ -104,6 +104,7 @@ class FrameEmitter:
     def __init__(self, world_ref: Dict, emit: Optional[Callable], cancel, enabled: bool, min_dt: float = 0.12):
         self.w, self.emit, self.cancel, self.enabled, self.min_dt = world_ref, emit, cancel, enabled, min_dt
         self.last = 0.0
+        self._last_gpu = 0.0
         self.extra: Dict = {}
 
     def __call__(self):
@@ -117,12 +118,20 @@ class FrameEmitter:
         self.last = now
         w = self.w["w"]
         qpos_list = [round(float(q), 3) for q in w.data.qpos[:5]] if hasattr(w, "data") else [0.0, -0.45, 0.82, -0.37, 0.0]
+        extra = {}
+        if now - self._last_gpu >= 1.0:
+            self._last_gpu = now
+            try:
+                extra["gpu"] = gpu_snapshot()
+            except Exception:  # noqa: BLE001
+                pass
         self.emit({
             "event": "frame",
             "png": R.png_b64(R.render_3d(w)),
             "ortho_png": R.png_b64(R.render_2d(w, draw_arm=True)),
             "qpos": qpos_list,
             "sim_time": round(w.time, 1),
+            **extra,
             **self.extra
         })
 
