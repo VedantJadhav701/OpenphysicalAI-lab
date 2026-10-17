@@ -55,7 +55,7 @@ def _line(img, p0, p1, color, width=2):
         img[max(0, r - width):min(SIZE, r + width + 1), max(0, c - width):min(SIZE, c + width + 1)] = color
 
 
-def render(world: World, draw_arm: bool = True, rng: Optional[np.random.Generator] = None, noise: float = 0.0) -> np.ndarray:
+def render_2d(world: World, draw_arm: bool = True, rng: Optional[np.random.Generator] = None, noise: float = 0.0) -> np.ndarray:
     img = np.empty((SIZE, SIZE, 3), np.uint8)
     img[:] = TABLE
     cx, cy = world.spec.container_pos
@@ -76,6 +76,42 @@ def render(world: World, draw_arm: bool = True, rng: Optional[np.random.Generato
         n = rng.normal(0, noise, img.shape)
         img = np.clip(img.astype(np.float32) + n, 0, 255).astype(np.uint8)
     return img
+
+
+def render_3d(world: World, width: int = 320, height: int = 320, az: float = 135.0, el: float = -26.0, dist: float = 0.92) -> np.ndarray:
+    try:
+        import mujoco
+        r = getattr(world, "_renderer_3d", None)
+        if r is None or r.height != height or r.width != width:
+            r = mujoco.Renderer(world.model, height, width)
+            world._renderer_3d = r
+            cam = mujoco.MjvCamera()
+            cam.lookat[:] = [0.12, 0.0, 0.10]
+            cam.distance = dist
+            cam.azimuth = az
+            cam.elevation = el
+            world._cam_3d = cam
+        else:
+            cam = getattr(world, "_cam_3d", None)
+            if cam is None:
+                cam = mujoco.MjvCamera()
+                cam.lookat[:] = [0.12, 0.0, 0.10]
+                cam.distance = dist
+                cam.azimuth = az
+                cam.elevation = el
+                world._cam_3d = cam
+        r.update_scene(world.data, camera=cam)
+        return r.render()
+    except Exception:
+        return render_2d(world, draw_arm=True)
+
+
+def render(world: World, draw_arm: bool = True, rng: Optional[np.random.Generator] = None, noise: float = 0.0, view_mode: str = "3d") -> np.ndarray:
+    if not draw_arm:
+        return render_2d(world, draw_arm=False, rng=rng, noise=noise)
+    if view_mode == "3d":
+        return render_3d(world)
+    return render_2d(world, draw_arm=True, rng=rng, noise=noise)
 
 
 def png_b64(img: np.ndarray) -> str:

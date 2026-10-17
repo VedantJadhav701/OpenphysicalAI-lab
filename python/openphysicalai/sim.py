@@ -74,7 +74,14 @@ def _mjcf(spec: SceneSpec) -> str:
     <position kp="600" kv="40"/>
     <geom contype="1" conaffinity="1"/>
   </default>
+  <visual>
+    <headlight diffuse="0.75 0.75 0.75" specular="0.25 0.25 0.25" ambient="0.4 0.4 0.4"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global offwidth="640" offheight="480"/>
+  </visual>
   <worldbody>
+    <light directional="true" pos="-0.3 -0.3 1.6" dir="0.3 0.3 -1" diffuse="0.85 0.85 0.85" specular="0.3 0.3 0.3" castshadow="true"/>
+    <light directional="true" pos="0.5 0.4 1.5" dir="-0.3 -0.2 -1" diffuse="0.5 0.5 0.5" specular="0.1 0.1 0.1"/>
     <geom name="table" type="plane" size="1 1 0.1" rgba="0.75 0.75 0.75 1" friction="1 0.01 0.001"/>
     <body name="base" pos="{bx} {by} 0" gravcomp="1">
       <geom type="cylinder" size="0.06 0.05" pos="0 0 0.05" rgba="0.3 0.3 0.3 1" contype="0" conaffinity="0"/>

@@ -124,7 +124,7 @@
       h('small', { id: 'liveinfo' }, S.frame ? `sim time ${S.frame.sim_time} s` : ''));
     return h('div', { class: 'wrap', style: 'max-width:1160px' },
       h('h1', { class: 'large' }, 'New Run'),
-      h('p', { class: 'sub' }, 'Runs real MuJoCo episodes. Live view is a software top-down camera drawn from the simulator state.'),
+      h('p', { class: 'sub' }, 'Runs real MuJoCo episodes with real-time 3D GPU physics rendering (RTX 3050 accelerated).'),
       S.err ? h('div', { class: 'err' }, S.err) : null,
       h('div', { class: 'runrow' }, h('div', null, ...configGroups(),
         h('div', { class: 'actions' }, h('button', { class: 'btn', disabled: S.running, onclick: () => startRuns([{ ...S.cfg }]) }, S.running ? 'Running...' : 'Start run'),
