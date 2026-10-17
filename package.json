@@ -1,0 +1,89 @@
+{
+  "name": "openphysicalai-lab",
+  "productName": "OpenPhysicalAI Lab",
+  "version": "0.2.0",
+  "description": "Budget-aware, latency-coupled, recovery-measured evaluation for Physical AI. Desktop app.",
+  "main": "main.js",
+  "author": "OpenPhysicalAI Lab contributors",
+  "license": "Apache-2.0",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "dist": "electron-builder",
+    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "ai.openphysicalai.lab",
+    "productName": "OpenPhysicalAI Lab",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "preload.js",
+      "src/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "python",
+        "to": "python",
+        "filter": [
+          "openphysicalai/**/*.py",
+          "requirements.txt",
+          "pyproject.toml",
+          "!**/__pycache__/**"
+        ]
+      },
+      {
+        "from": "configs",
+        "to": "configs"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.developer-tools",
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "universal"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "universal"
+          ]
+        }
+      ],
+      "hardenedRuntime": true,
+      "darkModeSupport": true
+    },
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  }
+}

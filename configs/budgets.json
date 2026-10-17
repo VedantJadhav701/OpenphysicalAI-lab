@@ -1,0 +1,9 @@
+{
+  "_note": "PROVISIONAL. Freeze after Phase 0 measurement. Never retune after seeing results; add a new version instead.",
+  "version": "0.1-provisional",
+  "profiles": {
+    "relaxed":  { "vram_process_peak_gb": 3.2, "vram_device_peak_gb": 3.8, "ram_process_peak_gb": 8, "ram_system_peak_gb": 14, "planning_ms_p95": 4000 },
+    "standard": { "vram_process_peak_gb": 3.2, "vram_device_peak_gb": 3.8, "ram_process_peak_gb": 8, "ram_system_peak_gb": 14, "planning_ms_p95": 2500 },
+    "strict":   { "vram_process_peak_gb": 3.2, "vram_device_peak_gb": 3.8, "ram_process_peak_gb": 8, "ram_system_peak_gb": 14, "planning_ms_p95": 500 }
+  }
+}
