@@ -46,9 +46,11 @@ class RunConfig:
     seed: int = 0
     budget: str = "standard"
     extra_latency_ms: float = 0.0     # explicit synthetic latency added to each plan (for latency-tax sweeps)
+    velocity_lead: bool = True        # predictive velocity lead compensation
     max_attempts: int = 3
     ollama_host: str = "http://127.0.0.1:11434"
     frames: bool = True
+    camera_mode: str = "3d"
     label: str = ""
 
     @staticmethod
@@ -56,9 +58,38 @@ class RunConfig:
         base = RunConfig()
         for k, v in d.items():
             if hasattr(base, k):
-                setattr(base, k, type(getattr(base, k))(v) if not isinstance(getattr(base, k), str) else str(v))
+                cur = getattr(base, k)
+                if isinstance(cur, bool):
+                    setattr(base, k, bool(v) if not isinstance(v, str) else v.lower() in ("true", "1"))
+                elif isinstance(cur, str):
+                    setattr(base, k, str(v))
+                else:
+                    setattr(base, k, type(cur)(v))
         base.episodes = max(1, min(int(base.episodes), 2000))
         return base
+
+
+_active_run = {"w": None, "inj": None}
+
+
+def poke(action: str) -> bool:
+    w = _active_run.get("w")
+    if not w:
+        return False
+    if action == "slip":
+        w.set_gripper(0.0)
+        w.settle(0.2)
+        return True
+    elif action == "nudge":
+        for o in w.spec.objects:
+            p = w.obj_pos(o.oid)
+            w.set_obj_pos(o.oid, (p[0], p[1] + 0.03, p[2]))
+            break
+        return True
+    elif action == "step":
+        w.step(20)
+        return True
+    return False
 
 
 def make_planner(cfg: RunConfig):
@@ -85,7 +116,15 @@ class FrameEmitter:
             return
         self.last = now
         w = self.w["w"]
-        self.emit({"event": "frame", "png": R.png_b64(R.render(w)), "sim_time": round(w.time, 1), **self.extra})
+        qpos_list = [round(float(q), 3) for q in w.data.qpos[:5]] if hasattr(w, "data") else [0.0, -0.45, 0.82, -0.37, 0.0]
+        self.emit({
+            "event": "frame",
+            "png": R.png_b64(R.render_3d(w)),
+            "ortho_png": R.png_b64(R.render_2d(w, draw_arm=True)),
+            "qpos": qpos_list,
+            "sim_time": round(w.time, 1),
+            **self.extra
+        })
 
 
 def _sim_id(w: World, ws_obj: Dict) -> Optional[str]:
@@ -110,9 +149,11 @@ def run_episode(cfg: RunConfig, seed: int, planner, budget_ms: float, frame_hook
     inst = tasks.generate(cfg.task, seed)
     w = World(inst.spec)
     holder = {"w": w}
+    _active_run["w"] = w
     hook = frame_hook_factory(holder)
     rng = np.random.default_rng(seed + 1)
     inj = Injector(cfg.perturb, np.random.default_rng(seed + 2))
+    _active_run["inj"] = inj
     perc = OraclePerception(rng, inj.pos_noise) if cfg.perception == "oracle" else VisionPerception(rng, inj.pix_noise)
     closed = cfg.agent in ("closed_loop", "recovery")
     ep = {"seed": seed, "task": cfg.task, "plans": 0, "plan_latencies_ms": [], "plan_errors": [], "actions": 0, "replans": 0,
@@ -162,7 +203,7 @@ def run_episode(cfg: RunConfig, seed: int, planner, budget_ms: float, frame_hook
                         inj.displace(w, sid, gid)
                     slip = inj.slip(gid)
                     x, y = o["x"], o["y"]
-                    if o.get("velocity_y"):
+                    if getattr(cfg, "velocity_lead", True) and o.get("velocity_y"):
                         y += o["velocity_y"] * ((w.time - t_obs) + PICK_LEAD_S)
                     y = min(max(y, -0.25), 0.25)
                     res = skills.pick(w, x, y, o["half_size"], o.get("yaw", 0.0), hook,
@@ -322,6 +363,9 @@ def run(cfg: RunConfig, emit: Optional[Callable[[Dict], None]] = None, cancel=No
         if emit:
             emit({"event": "cancelled"})
         return {}
+    finally:
+        _active_run["w"] = None
+        _active_run["inj"] = None
     pr = prof.stop().as_dict()
     summ = summarize(cfg, eps, pr, gpu is not None)
     return {"id": "run_" + uuid.uuid4().hex[:10], "created": datetime.now(timezone.utc).isoformat(), "version": VERSION,

@@ -118,3 +118,42 @@ a.link { color: var(--blue); cursor: default; }
 .err { color: var(--red); font-size: 13px; margin-top: 8px; white-space: pre-wrap; }
 .ok { color: var(--green); }
 .tag { font-size: 11px; color: var(--label2); }
+
+/* Manual Theme Overrides for Settings Segmented Control */
+body[data-theme="light"] {
+  --bg: #f2f2f7; --card: #ffffff; --sidebar: #e9e9ef; --label: #000000;
+  --label2: rgba(60, 60, 67, 0.6); --label3: rgba(60, 60, 67, 0.3);
+  --sep: rgba(60, 60, 67, 0.18); --fill: rgba(120, 120, 128, 0.12); --fill2: rgba(120, 120, 128, 0.2);
+}
+body[data-theme="dark"] {
+  --bg: #000000; --card: #1c1c1e; --sidebar: #161618; --label: #ffffff;
+  --label2: rgba(235, 235, 245, 0.6); --label3: rgba(235, 235, 245, 0.3);
+  --sep: rgba(84, 84, 88, 0.55); --fill: rgba(120, 120, 128, 0.24); --fill2: rgba(120, 120, 128, 0.36);
+}
+
+/* Topbar iOS Live Hardware Telemetry Strip */
+.topbar {
+  display: flex; align-items: center; justify-content: flex-end;
+  padding: 0 24px; gap: 8px; height: 42px;
+}
+.hw-strip {
+  -webkit-app-region: no-drag;
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--card); border: 0.5px solid var(--sep);
+  padding: 4px 12px; border-radius: 999px; font-size: 12px; color: var(--label2);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+.hw-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); display: inline-block; }
+.hw-dot.warn { background: var(--orange); }
+.hw-dot.off { background: var(--red); }
+
+/* Viewport HUD & Joint Readout */
+.hud-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;
+  width: 100%; margin-top: 6px; padding-top: 6px; border-top: 0.5px solid var(--sep);
+  font-family: ui-monospace, "SF Mono", Consolas, monospace; font-size: 11px; text-align: center;
+}
+.hud-cell { background: var(--fill); border-radius: 6px; padding: 3px 4px; }
+.hud-cell b { display: block; font-size: 10px; color: var(--label2); font-weight: 500; }
+.poke-bar { display: flex; gap: 6px; width: 100%; justify-content: center; margin-top: 6px; flex-wrap: wrap; }
+.btn.sm { padding: 6px 11px; font-size: 12px; border-radius: 8px; }

@@ -98,6 +98,9 @@ def main():
             elif cmd == "clear_runs":
                 store.clear()
                 res = True
+            elif cmd == "poke":
+                from .runner import poke as do_poke
+                res = {"poked": do_poke(m.get("action", ""))}
             else:
                 send({"id": mid, "ok": False, "error": f"unknown cmd {cmd}"})
                 continue
