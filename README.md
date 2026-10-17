@@ -42,6 +42,26 @@ It measures how much reliable physical capability a Physical AI system delivers 
 
 *(Demonstrates +30.0% reliability gain from active diagnosis & replanning under real-time physics).*
 
+  - **Verifier Honesty Benchmark** (Moderate Perturbation, Real-Time Mode):
+
+| Agent | Verifier | Mode | Perturbation | TSR (95% CI) | Detect | Recover | False Alarm | Missed | Planning p95 |
+|---|---|---|---|---|---|---|---|---|---|
+| **Recovery** | **V0 (oracle)** | realtime | Moderate | **100.0%** (72.2% to 100.0%) | 100.0% | 100.0% | 0.0% | 0.0% | 1320 ms |
+| **Recovery** | **V1 (proprio)** | realtime | Moderate | **100.0%** (72.2% to 100.0%) | 100.0% | 100.0% | 0.0% | 0.0% | 1393 ms |
+| **Recovery** | **V2 (camera)** | realtime | Moderate | **100.0%** (72.2% to 100.0%) | 100.0% | 100.0% | 0.0% | 0.0% | 1336 ms |
+
+  - **The Latency Tax Benchmark** (Dynamic Moving Cube, Vision Perception):
+
+| Agent | Verifier | Mode | Synthetic Latency | TSR (95% CI) | Detect | Recover | Planning p95 |
+|---|---|---|---|---|---|---|---|
+| **Closed-loop** | V1 | sync | 0 ms | **38.0%** (25.9% to 51.8%) | n/a | n/a | 0 ms |
+| **Closed-loop** | V1 | realtime | 0 ms | **38.0%** (25.9% to 51.8%) | n/a | n/a | 0 ms |
+| **Closed-loop** | V1 | realtime | 1000 ms (1.0 s) | **0.0%** (0.0% to 7.1%) | n/a | n/a | 1000 ms |
+| **Closed-loop** | V1 | realtime | 2000 ms (2.0 s) | **0.0%** (0.0% to 7.1%) | n/a | n/a | 2000 ms |
+| **Closed-loop** | V1 | realtime | 4000 ms (4.0 s) | **0.0%** (0.0% to 7.1%) | n/a | n/a | 4000 ms |
+
+*(Empirical proof of the latency tax: at $\ge 1.0\text{ s}$ planner latency without velocity compensation, success collapses from 38% straight to 0% because the arm acts on stale observations while the world moves).*
+
 ## Pending Verification
 
 - **macOS**: Not run yet. Expect small first-launch adjustments.

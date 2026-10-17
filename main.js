@@ -9,6 +9,19 @@ const isMac = process.platform === 'darwin';
 const isWin = process.platform === 'win32';
 let win = null;
 
+app.commandLine.appendSwitch('disable-gpu-shader-disk-cache');
+const gotTheLock = app.requestSingleInstanceLock();
+if (!gotTheLock) {
+  app.quit();
+} else {
+  app.on('second-instance', () => {
+    if (win) {
+      if (win.isMinimized()) win.restore();
+      win.focus();
+    }
+  });
+}
+
 // ---------- paths ----------
 const pyDir = () => (app.isPackaged ? path.join(process.resourcesPath, 'python') : path.join(__dirname, 'python'));
 const reqFile = () => (app.isPackaged ? path.join(process.resourcesPath, 'python', 'requirements.txt') : path.join(__dirname, 'python', 'requirements.txt'));
