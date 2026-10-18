@@ -85,9 +85,6 @@ flowchart LR
 
 All benchmarks below were executed on an HP Victus 15 (**OPAI-4G Reference Tier**: NVIDIA GeForce RTX 3050 Laptop GPU 4.0 GB VRAM, 16 GB System RAM, Windows 11, MuJoCo 3.16.0).
 
-### 1. Local LLM Planner Speed & Footprint (OPAI-4G Tier)
-
-| Local Model (Ollama) | Weights Size | Peak Device VRAM | Warm Planning Latency | Throughput | Schema Compliance |
 ### 1. Local LLM Planner Speed & Footprint (OPAI-4G Tier, N=20 per Model, Real-Time Mode)
 
 All models evaluated under identical real-time closed-loop pick-and-place tasks on an NVIDIA GeForce RTX 3050 Laptop GPU (4.0 GB VRAM):
@@ -128,50 +125,63 @@ Measured on the `dynamic` task with moving cube at $0.02\text{ m/s}$, single-fra
 
 ---
 
-## 🚀 Quick Start
+### 1. Install via pip (PyPI)
+The OpenPhysicalAI core simulation engine and `opai` CLI are published directly on [PyPI](https://pypi.org/project/openphysicalai/):
 
-### 1. One-Click Windows Launch (Desktop App)
-Clone the repository and double-click `start-app.bat`, or run from terminal:
+```bash
+pip install openphysicalai
+```
+
+Verify your hardware tier and GPU profiler:
+```bash
+opai doctor
+```
+
+Run a reproducible headless benchmark:
+```bash
+opai run --task pick_place --policy rule --agent recovery --verifier V1 --perturb moderate --episodes 50
+```
+
+### 2. Desktop Workbench App (Electron + MuJoCo 3D)
+Clone the repository and launch the iOS-style interactive desktop app:
 
 ```bash
 git clone https://github.com/VedantJadhav701/OpenphysicalAI-lab.git
 cd OpenphysicalAI-lab
 
-# Optional: activate your existing Conda environment (auto-detected by main.js)
-conda activate thermo_agent
-
+# Double-click start-app.bat on Windows, or run:
 npm install
 npm start
 ```
+*(On Windows, pre-built portable `.exe` and NSIS installers are also available in [GitHub Releases](https://github.com/VedantJadhav701/OpenphysicalAI-lab/releases)).*
 
-### 2. Pull the Recommended 4GB-Tier Local LLM Planner
+### 3. Pull Recommended Local LLM Planners (Ollama)
 
 ```bash
-ollama pull gemma2:2b
-
-# Or for the 4B Qwen3 planner:
-ollama pull qwen3:4b-instruct-2507-q4_K_M
+# Recommended 4GB-tier models:
+ollama pull qwen2.5:3b     # 469 ms latency, 100% TSR
+ollama pull gemma2:2b       # 715 ms latency, 100% TSR
 ```
 
-### 3. Headless CLI & Phase-1 Gate Verification
+### 4. Deterministic Phase-1 Physics Gate Verification
 
 ```bash
 python python/gate1.py
 pytest python/tests
-python -m openphysicalai.cli run --task pick_place --perception vision --perturb moderate --verifier V2 --episodes 50
 ```
 
 ---
 
 ## 🏆 Community Hardware Leaderboard
 
-Run the benchmark suite on your machine, generate a signed Budget Card (`budget_card_run_*.md`), and submit a Pull Request to add your hardware configuration below!
+Run `opai doctor` and `opai run` on your machine, copy the reproducible run command and Budget Card, and open a PR to add your hardware below!
 
-| Contributor | Device / GPU | Tier Class | Planner Model | Peak Device VRAM | Planning p95 | Recovery TSR | Energy / Ep | Budget Status |
+| Contributor | Device / GPU | Hardware Tier | Planner Model | Peak Device VRAM | Planning p95 | Real-Time TSR (95% CI) | Energy / Ep | Budget Status |
 |---|---|---|---|---|---|---|---|---|
-| **@VedantJadhav701** | HP Victus 15 (RTX 3050 4GB, 16GB RAM) | `OPAI-4G` | `gemma2:2b` | 2.10 GB | 698 ms | 100.0% | ~92 J | ✅ PASS |
-| **@VedantJadhav701** | HP Victus 15 (RTX 3050 4GB, 16GB RAM) | `OPAI-4G` | `qwen3:4b-q4_K_M` | 2.53 GB | 1344 ms | 100.0% | 133.6 J | ✅ PASS |
-| *Your GitHub Handle* | *Add your GPU / Apple Silicon / CPU* | *OPAI-4G/8G/16G* | *Any Ollama Model* | *Measured GB* | *Measured ms* | *Measured %* | *Measured J* | *Submit PR!* |
+| **@VedantJadhav701** | HP Victus 15 (RTX 3050 4GB) | `OPAI-4G` | `qwen2.5:3b` | 2.57 GB | 493 ms | **100.0%** (83.9%–100.0%) | ~72 J | ✅ PASS |
+| **@VedantJadhav701** | HP Victus 15 (RTX 3050 4GB) | `OPAI-4G` | `gemma2:2b` | 2.36 GB | 751 ms | **100.0%** (83.9%–100.0%) | ~92 J | ✅ PASS |
+| **@VedantJadhav701** | HP Victus 15 (RTX 3050 4GB) | `OPAI-4G` | `rule-based` | 0.55 GB | 0.03 ms | **73.0%** (63.6%–80.7%, V2, N=100) | 5.2 J | ✅ PASS |
+| *Your GitHub Handle* | *Your GPU / Mac / CPU* | *OPAI-4G/8G/16G* | *Ollama Model* | *Measured GB* | *Measured ms* | *Measured %* | *Measured J* | *Submit PR!* |
 
 ---
 
