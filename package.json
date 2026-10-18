@@ -4,7 +4,12 @@
   "version": "0.2.2",
   "description": "Budget-aware, latency-coupled, recovery-measured evaluation for Physical AI. Desktop app.",
   "main": "main.js",
-  "author": "OpenPhysicalAI Lab contributors",
+  "author": "Vedant Jadhav <vedantjadhav701@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VedantJadhav701/OpenphysicalAI-lab.git"
+  },
+  "homepage": "https://openphysicalai.vercel.app/",
   "license": "Apache-2.0",
   "scripts": {
     "start": "electron .",

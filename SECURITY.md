@@ -13,7 +13,7 @@ OpenPhysicalAI Lab takes security and isolation seriously, particularly regardin
 
 If you discover a security vulnerability:
 1. **Do NOT open a public GitHub issue.**
-2. Send a report directly to the repository maintainer with:
+2. Send a report via [GitHub Security Advisories](https://github.com/VedantJadhav701/OpenphysicalAI-lab/security/advisories/new) or email the project author directly at `vedantjadhav701@gmail.com` with:
    - A description of the issue.
    - Steps or proof-of-concept to reproduce it.
    - Potential impact.

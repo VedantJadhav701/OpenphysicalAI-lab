@@ -8,8 +8,15 @@ version = "0.2.2"
 description = "OpenPhysicalAI Lab core: budget-aware, latency-coupled evaluation for Physical AI"
 readme = "README.md"
 license = "Apache-2.0"
+authors = [{name = "Vedant Jadhav", email = "vedantjadhav701@gmail.com"}]
 requires-python = ">=3.9"
 dependencies = ["mujoco>=3.1", "numpy>=1.24", "psutil>=5.9"]
+
+[project.urls]
+Homepage = "https://openphysicalai.vercel.app/"
+Repository = "https://github.com/VedantJadhav701/OpenphysicalAI-lab"
+Issues = "https://github.com/VedantJadhav701/OpenphysicalAI-lab/issues"
+Documentation = "https://github.com/VedantJadhav701/OpenphysicalAI-lab#readme"
 
 [project.optional-dependencies]
 sim = ["mujoco>=3.1"]
