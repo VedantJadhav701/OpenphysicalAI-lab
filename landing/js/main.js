@@ -19,11 +19,23 @@ try { startArm($('#arm'), { onLog }); } catch (e) { console.warn('3D hero disabl
 safe(() => startDemo($('#demo'), { slider: $('#lat'), valueEl: $('#latVal'), verdictEl: $('#verdict'), toggles: $$('.toggle button') }));
 
 /* ---------- reveal on scroll ---------- */
+document.documentElement.classList.add('js');
 const io = new IntersectionObserver((es) => es.forEach(e => {
-  if (!e.isIntersecting) return; e.target.classList.add('in'); io.unobserve(e.target);
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in');
+  io.unobserve(e.target);
   $$('.bar', e.target).forEach(b => { $('u', b).style.width = b.dataset.v + '%'; });
-}), { threshold: 0.15 });
-$$('.rv').forEach(el => io.observe(el));
+}), { threshold: 0.01, rootMargin: '0px 0px 80px 0px' });
+
+$$('.rv').forEach(el => {
+  const r = el.getBoundingClientRect();
+  if (r.top < window.innerHeight + 150) {
+    el.classList.add('in');
+    $$('.bar', el).forEach(b => { $('u', b).style.width = b.dataset.v + '%'; });
+  } else {
+    io.observe(el);
+  }
+});
 
 /* ---------- count-up stats ---------- */
 const co = new IntersectionObserver((es) => es.forEach(e => {

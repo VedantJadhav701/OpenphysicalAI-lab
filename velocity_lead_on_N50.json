@@ -1,0 +1,1320 @@
+{
+  "id": "run_57eafc66d5",
+  "created": "2026-10-18T08:38:06.784388+00:00",
+  "version": "0.2.2",
+  "config": {
+    "task": "dynamic",
+    "policy": "rule",
+    "agent": "recovery",
+    "perception": "oracle",
+    "verifier": "V1",
+    "perturb": "clean",
+    "mode": "realtime",
+    "episodes": 50,
+    "seed": 0,
+    "budget": "standard",
+    "extra_latency_ms": 0.0,
+    "velocity_lead": true,
+    "max_attempts": 3,
+    "ollama_host": "http://127.0.0.1:11434",
+    "frames": false,
+    "camera_mode": "3d",
+    "label": "",
+    "resume_from": null
+  },
+  "policy_name": "rule-based",
+  "track": "scripted",
+  "assist": "A3",
+  "profile": {
+    "vram_device_baseline_gb": 0.576,
+    "vram_device_peak_gb": 0.576,
+    "vram_device_delta_gb": 0.0,
+    "vram_process_peak_gb": 0.0,
+    "vram_process_source": "estimated: device peak minus baseline",
+    "ram_process_peak_gb": 0.218,
+    "ram_system_peak_gb": 12.737,
+    "gpu_name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "gpu_total_gb": 4.0,
+    "energy_j": 64.8,
+    "temp_peak_c": 57,
+    "throttled_any": false,
+    "samples": 34,
+    "duration_s": 4.46,
+    "confidence": "medium",
+    "vram_ollama_peak_gb": 0.0
+  },
+  "wall_s": 4.5,
+  "metrics": {
+    "episodes": 50,
+    "successes": 50,
+    "tsr": 1.0,
+    "tsr_ci": [
+      0.9286499658256813,
+      1.0
+    ],
+    "latency_ms": {
+      "p50": 0.015749996236991137,
+      "p95": 0.031860000308370204,
+      "p99": 0.07214899829705232,
+      "mean": 0.018933999817818403
+    },
+    "deadline_miss_rate": 0.0,
+    "staleness_s_mean": 0.0,
+    "plans_per_episode": 1.0,
+    "actions_per_episode": 2.0,
+    "sim_time_s_mean": 6.941999999999998,
+    "failures_injected": 0,
+    "detection_rate": null,
+    "recovery_rate": null,
+    "diagnosis_accuracy": null,
+    "false_alarm_rate": 0.0,
+    "missed_failure_rate": 0.0,
+    "failure_breakdown": {},
+    "tokens_per_s_mean": null,
+    "energy_j_per_episode": 1.296
+  },
+  "budget": {
+    "profile": "standard",
+    "pass": true,
+    "checks": [
+      {
+        "name": "vram_process_peak_gb",
+        "value": 0.0,
+        "cap": 3.2,
+        "ok": true,
+        "note": ""
+      },
+      {
+        "name": "vram_device_peak_gb",
+        "value": 0.576,
+        "cap": 3.8,
+        "ok": true,
+        "note": ""
+      },
+      {
+        "name": "ram_process_peak_gb",
+        "value": 0.218,
+        "cap": 8.0,
+        "ok": true,
+        "note": ""
+      },
+      {
+        "name": "ram_system_peak_gb",
+        "value": 12.737,
+        "cap": 14.0,
+        "ok": true,
+        "note": ""
+      },
+      {
+        "name": "planning_ms_p95",
+        "value": 0.031860000308370204,
+        "cap": 2500.0,
+        "ok": true,
+        "note": ""
+      }
+    ]
+  },
+  "episodes_detail": [
+    {
+      "seed": 0,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.10639999527484179
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.8
+    },
+    {
+      "seed": 1,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.02370000584051013
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.8
+    },
+    {
+      "seed": 2,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.022899999748915434
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 3,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.016399993910454214
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 4,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.016999998479150236
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 5,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.034199998481199145
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 6,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01610000617802143
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.8
+    },
+    {
+      "seed": 7,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.017099999240599573
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 8,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.016999998479150236
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 9,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.024300010409206152
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 10,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.018100006855092943
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 11,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.015300000086426735
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.8
+    },
+    {
+      "seed": 12,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.013899989426136017
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 13,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.016200006939470768
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 14,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.016699996194802225
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.8
+    },
+    {
+      "seed": 15,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01750000228639692
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 16,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01589999010320753
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.8
+    },
+    {
+      "seed": 17,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.015900004655122757
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 18,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.015400000847876072
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 19,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.013999990187585354
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 20,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.014699995517730713
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 21,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01479999627918005
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 22,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01410000550094992
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 23,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.015699988580308855
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 24,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.014899997040629387
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 25,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.03650000144261867
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 26,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.016300007700920105
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.8
+    },
+    {
+      "seed": 27,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.013800003216601908
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 28,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.013299999409355223
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 29,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.013699987903237343
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 30,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.029000002541579306
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 31,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.015500001609325409
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 32,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01580000389367342
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 33,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.015600002370774746
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.8
+    },
+    {
+      "seed": 34,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.017300000763498247
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.8
+    },
+    {
+      "seed": 35,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.014299992471933365
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 36,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.014199991710484028
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 37,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01720000000204891
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 38,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01410000550094992
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 39,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.015500001609325409
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 40,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.0171000137925148
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 41,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.015099998563528061
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 42,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.015300000086426735
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 43,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.014700010069645941
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 44,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.013199998647905886
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 45,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01340000017080456
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 46,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.014699995517730713
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 47,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01410000550094992
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 48,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.019699989934451878
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 49,
+      "task": "dynamic",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.019099999917671084
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    }
+  ],
+  "reproduce_command": "opai run --task dynamic --policy rule --agent recovery --perception oracle --verifier V1 --perturb clean --mode realtime --budget standard --episodes 50 --seed 0"
+}

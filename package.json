@@ -1,7 +1,7 @@
 {
   "name": "openphysicalai-lab",
   "productName": "OpenPhysicalAI Lab",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Budget-aware, latency-coupled, recovery-measured evaluation for Physical AI. Desktop app.",
   "main": "main.js",
   "author": "OpenPhysicalAI Lab contributors",

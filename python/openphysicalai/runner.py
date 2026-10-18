@@ -3,7 +3,9 @@ is synchronous; in `realtime` mode the world is advanced by the measured inferen
 before the plan is applied, so slow models act on stale observations."""
 from __future__ import annotations
 
+import json
 import math
+import os
 import time
 import uuid
 from dataclasses import dataclass, field, asdict
@@ -26,7 +28,7 @@ SLOTS = [(-0.04, -0.04), (0.04, -0.04), (0.0, 0.04), (0.04, 0.04), (-0.04, 0.04)
 LIFT_Z = 0.08
 HELD_RANGE = (0.020, 0.042)
 PICK_LEAD_S = 1.05   # Calibrated to match 0.65s horizontal move + 0.40s descent to near_gripper capture zone
-VERSION = "0.2.1"
+VERSION = "0.2.2"
 
 
 class Cancelled(Exception):
@@ -52,6 +54,7 @@ class RunConfig:
     frames: bool = True
     camera_mode: str = "3d"
     label: str = ""
+    resume_from: Optional[str] = None
 
     @staticmethod
     def from_dict(d: Dict) -> "RunConfig":
@@ -377,14 +380,33 @@ def run(cfg: RunConfig, emit: Optional[Callable[[Dict], None]] = None, cancel=No
         return fe
     prof = Profiler().start()
     eps: List[Dict] = []
+    completed_seeds = set()
+    if cfg.resume_from and os.path.isfile(cfg.resume_from):
+        try:
+            with open(cfg.resume_from, "r") as f:
+                prev_data = json.load(f)
+            prev_eps = prev_data.get("episodes_detail", [])
+            for ep in prev_eps:
+                eps.append(ep)
+                if "seed" in ep:
+                    completed_seeds.add(ep["seed"])
+            if emit:
+                emit({"event": "log", "line": f"Resuming: loaded {len(prev_eps)} episodes from {cfg.resume_from}"})
+        except Exception as e:  # noqa: BLE001
+            if emit:
+                emit({"event": "log", "line": f"Warning: could not load resume file {cfg.resume_from}: {e}"})
+
     t0 = time.perf_counter()
     try:
         for i in range(cfg.episodes):
-            ep = run_episode(cfg, cfg.seed + i, planner, budget_ms, factory, cancel)
+            target_seed = cfg.seed + i
+            if target_seed in completed_seeds:
+                continue
+            ep = run_episode(cfg, target_seed, planner, budget_ms, factory, cancel)
             eps.append(ep)
             if emit:
                 k = sum(e["success"] for e in eps)
-                emit({"event": "progress", "done": i + 1, "total": cfg.episodes, "successes": k, "last_ok": ep["success"]})
+                emit({"event": "progress", "done": len(eps), "total": cfg.episodes, "successes": k, "last_ok": ep["success"]})
     except Cancelled:
         prof.stop()
         if emit:
@@ -394,6 +416,7 @@ def run(cfg: RunConfig, emit: Optional[Callable[[Dict], None]] = None, cancel=No
         _active_run["w"] = None
         _active_run["inj"] = None
         _active_run["pokes"] = []
+    eps.sort(key=lambda e: e.get("seed", 0))
     pr = prof.stop().as_dict()
     summ = summarize(cfg, eps, pr, gpu is not None)
     return {"id": "run_" + uuid.uuid4().hex[:10], "created": datetime.now(timezone.utc).isoformat(), "version": VERSION,

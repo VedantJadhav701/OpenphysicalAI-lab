@@ -112,6 +112,7 @@ def gpu_process_vram_gb(pids: List[int]) -> Optional[float]:
 class ProfileResult:
     vram_device_baseline_gb: Optional[float] = None
     vram_device_peak_gb: Optional[float] = None
+    vram_device_delta_gb: Optional[float] = None
     vram_process_peak_gb: Optional[float] = None
     vram_process_source: str = "unavailable"
     ram_process_peak_gb: float = 0.0
@@ -217,6 +218,10 @@ class Profiler:
                 r.vram_process_source = "estimated: device peak minus baseline"
                 r.confidence = "medium"
             r.vram_device_peak_gb = round(r.vram_device_peak_gb, 3)
+            if r.vram_device_baseline_gb is not None:
+                r.vram_device_delta_gb = round(max(0.0, r.vram_device_peak_gb - r.vram_device_baseline_gb), 3)
+            else:
+                r.vram_device_delta_gb = None
         else:
             r.confidence = "low"
         r.ram_process_peak_gb = round(r.ram_process_peak_gb, 3)

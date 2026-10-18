@@ -26,17 +26,27 @@ if (!gotTheLock) {
 const pyDir = () => (app.isPackaged ? path.join(process.resourcesPath, 'python') : path.join(__dirname, 'python'));
 const reqFile = () => (app.isPackaged ? path.join(process.resourcesPath, 'python', 'requirements.txt') : path.join(__dirname, 'python', 'requirements.txt'));
 const venvDir = () => path.join(app.getPath('userData'), 'venv');
+const standalonePyDir = () => path.join(app.getPath('userData'), 'python-runtime');
 const venvPy = () => {
   if (process.env.OPAI_PYTHON && fs.existsSync(process.env.OPAI_PYTHON)) return process.env.OPAI_PYTHON;
+  const bundledPy = path.join(process.resourcesPath, 'python-runtime', isWin ? 'python.exe' : 'bin/python');
+  if (fs.existsSync(bundledPy)) return bundledPy;
+
+  const userStandalonePy = path.join(standalonePyDir(), isWin ? 'python.exe' : 'bin/python');
+  if (fs.existsSync(userStandalonePy)) return userStandalonePy;
+
   if (process.env.CONDA_PREFIX) {
     const condaPy = path.join(process.env.CONDA_PREFIX, isWin ? 'python.exe' : 'bin/python');
     if (fs.existsSync(condaPy)) return condaPy;
   }
+  const userVenvPy = path.join(venvDir(), isWin ? 'Scripts' : 'bin', isWin ? 'python.exe' : 'python');
+  if (fs.existsSync(userVenvPy)) return userVenvPy;
+
   const defaultConda = isWin
     ? path.join(os.homedir(), 'miniconda3', 'envs', 'thermo_agent', 'python.exe')
     : path.join(os.homedir(), 'miniconda3', 'envs', 'thermo_agent', 'bin', 'python');
   if (fs.existsSync(defaultConda)) return defaultConda;
-  return path.join(venvDir(), isWin ? 'Scripts' : 'bin', isWin ? 'python.exe' : 'python');
+  return userVenvPy;
 };
 const dataDir = () => path.join(app.getPath('userData'), 'data');
 
@@ -52,6 +62,9 @@ function run(cmd, args, opts = {}) {
   });
 }
 async function findSystemPython() {
+  const userStandalonePy = path.join(standalonePyDir(), isWin ? 'python.exe' : 'bin/python');
+  if (fs.existsSync(userStandalonePy)) return { cmd: userStandalonePy, pre: [] };
+
   const cands = isWin ? [['py', ['-3']], ['python', []], ['python3', []]] : [['python3', []], ['python', []]];
   for (const [cmd, pre] of cands) {
     const r = await run(cmd, [...pre, '-c', 'import sys;print(sys.version_info[0]*100+sys.version_info[1])']);
@@ -62,7 +75,13 @@ async function findSystemPython() {
 async function envStatus() {
   if (!fs.existsSync(venvPy())) {
     const sys = await findSystemPython();
-    return { ok: false, reason: sys ? 'not_installed' : 'no_python', message: sys ? 'Python found. Dependencies not installed yet.' : 'Python 3.9+ not found. Install it from python.org, then reopen this app.' };
+    return {
+      ok: false,
+      reason: sys ? 'not_installed' : 'no_python',
+      message: sys
+        ? 'Python found. Dependencies not installed yet. Click Install to set up.'
+        : 'No Python found on your PC. Click Install to automatically set up a self-contained runtime.'
+    };
   }
   const r = await run(venvPy(), ['-c', 'import mujoco, numpy, psutil; print(mujoco.__version__)']);
   if (r.err) return { ok: false, reason: 'broken', message: 'Environment is incomplete. Run install again.' };
@@ -70,8 +89,7 @@ async function envStatus() {
 }
 function installEnv(emit) {
   return new Promise(async (resolve) => {
-    const sys = await findSystemPython();
-    if (!sys) return resolve({ ok: false, error: 'Python 3.9+ not found' });
+    let sys = await findSystemPython();
     const step = (cmd, args) => new Promise((res) => {
       emit(`$ ${cmd} ${args.join(' ')}`);
       const p = spawn(cmd, args, { windowsHide: true });
@@ -81,8 +99,43 @@ function installEnv(emit) {
       p.on('close', (c) => res(c));
     });
     fs.mkdirSync(app.getPath('userData'), { recursive: true });
+
+    if (!sys) {
+      emit('No system Python detected. Setting up self-contained standalone Python runtime (zero prerequisites) ...');
+      const targetDir = standalonePyDir();
+      fs.mkdirSync(targetDir, { recursive: true });
+      if (isWin) {
+        const psScript = `
+          $ProgressPreference = 'SilentlyContinue';
+          Write-Host 'Downloading embeddable Python for Windows...';
+          $url = 'https://www.python.org/ftp/python/3.11.9/python-3.11.9-embed-amd64.zip';
+          $zipPath = '${path.join(app.getPath('userData'), 'py_embed.zip').replace(/\\/g, '\\\\')}';
+          Invoke-WebRequest -Uri $url -OutFile $zipPath;
+          Write-Host 'Extracting Python runtime...';
+          Expand-Archive -Path $zipPath -DestinationPath '${targetDir.replace(/\\/g, '\\\\')}' -Force;
+          Remove-Item -Force $zipPath;
+          $pthFile = Get-Item '${path.join(targetDir, 'python311._pth').replace(/\\/g, '\\\\')}';
+          (Get-Content $pthFile) -replace '^#import site', 'import site' | Set-Content $pthFile;
+          Write-Host 'Fetching get-pip.py...';
+          $pipPy = '${path.join(targetDir, 'get-pip.py').replace(/\\/g, '\\\\')}';
+          Invoke-WebRequest -Uri 'https://bootstrap.pypa.io/get-pip.py' -OutFile $pipPy;
+          Write-Host 'Installing pip...';
+          & '${path.join(targetDir, 'python.exe').replace(/\\/g, '\\\\')}' $pipPy;
+          Remove-Item -Force $pipPy;
+        `;
+        const code = await step('powershell', ['-NoProfile', '-Command', psScript]);
+        if (code !== 0) return resolve({ ok: false, error: 'Automatic Python download failed' });
+        sys = { cmd: path.join(targetDir, 'python.exe'), pre: [] };
+      } else {
+        return resolve({ ok: false, error: 'Python 3.9+ not found. Please install Python 3.9+ or run brew install python.' });
+      }
+    }
+
     if (!fs.existsSync(venvPy())) {
-      if (await step(sys.cmd, [...sys.pre, '-m', 'venv', venvDir()])) return resolve({ ok: false, error: 'venv creation failed' });
+      if (await step(sys.cmd, [...sys.pre, '-m', 'venv', venvDir()])) {
+        // In embeddable python, run pip directly if venv module is omitted
+        emit('Using direct standalone runtime without venv isolation ...');
+      }
     }
     await step(venvPy(), ['-m', 'pip', 'install', '--upgrade', 'pip']);
     let code = await step(venvPy(), ['-m', 'pip', 'install', '-r', reqFile()]);

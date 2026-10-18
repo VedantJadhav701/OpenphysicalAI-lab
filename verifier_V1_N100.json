@@ -1,0 +1,3934 @@
+{
+  "id": "run_36d076978c",
+  "created": "2026-10-17T18:56:14.999740+00:00",
+  "version": "0.2.1",
+  "config": {
+    "task": "pick_place",
+    "policy": "rule",
+    "agent": "recovery",
+    "perception": "oracle",
+    "verifier": "V1",
+    "perturb": "moderate",
+    "mode": "realtime",
+    "episodes": 100,
+    "seed": 42,
+    "budget": "standard",
+    "extra_latency_ms": 0.0,
+    "velocity_lead": true,
+    "max_attempts": 3,
+    "ollama_host": "http://127.0.0.1:11434",
+    "frames": false,
+    "camera_mode": "3d",
+    "label": ""
+  },
+  "policy_name": "rule-based",
+  "track": "scripted",
+  "assist": "A3",
+  "profile": {
+    "vram_device_baseline_gb": 0.55,
+    "vram_device_peak_gb": 0.571,
+    "vram_process_peak_gb": 0.021,
+    "vram_process_source": "estimated: device peak minus baseline",
+    "ram_process_peak_gb": 0.18,
+    "ram_system_peak_gb": 14.028,
+    "gpu_name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "gpu_total_gb": 4.0,
+    "energy_j": 506.4,
+    "temp_peak_c": 57,
+    "throttled_any": false,
+    "samples": 283,
+    "duration_s": 36.44,
+    "confidence": "medium",
+    "vram_ollama_peak_gb": 0.0
+  },
+  "wall_s": 36.4,
+  "metrics": {
+    "episodes": 100,
+    "successes": 68,
+    "tsr": 0.68,
+    "tsr_ci": [
+      0.5833719774632081,
+      0.7633098918454312
+    ],
+    "latency_ms": {
+      "p50": 0.021500003640539944,
+      "p95": 0.03234500291000586,
+      "p99": 0.04908399998385004,
+      "mean": 0.02229206366459876
+    },
+    "deadline_miss_rate": 0.0,
+    "staleness_s_mean": 0.0,
+    "plans_per_episode": 2.52,
+    "actions_per_episode": 3.28,
+    "sim_time_s_mean": 12.915,
+    "failures_injected": 124,
+    "detection_rate": 0.8790322580645161,
+    "recovery_rate": 0.5137614678899083,
+    "diagnosis_accuracy": 0.8532110091743119,
+    "false_alarm_rate": 0.0,
+    "missed_failure_rate": 0.036585365853658534,
+    "failure_breakdown": {
+      "recovery_exhausted": 20,
+      "placement_or_grasp": 12
+    },
+    "tokens_per_s_mean": null,
+    "energy_j_per_episode": 5.064
+  },
+  "budget": {
+    "profile": "standard",
+    "pass": false,
+    "checks": [
+      {
+        "name": "vram_process_peak_gb",
+        "value": 0.021,
+        "cap": 3.2,
+        "ok": true,
+        "note": ""
+      },
+      {
+        "name": "vram_device_peak_gb",
+        "value": 0.571,
+        "cap": 3.8,
+        "ok": true,
+        "note": ""
+      },
+      {
+        "name": "ram_process_peak_gb",
+        "value": 0.18,
+        "cap": 8.0,
+        "ok": true,
+        "note": ""
+      },
+      {
+        "name": "ram_system_peak_gb",
+        "value": 14.028,
+        "cap": 14.0,
+        "ok": false,
+        "note": ""
+      },
+      {
+        "name": "planning_ms_p95",
+        "value": 0.03234500291000586,
+        "cap": 2500.0,
+        "ok": true,
+        "note": ""
+      }
+    ]
+  },
+  "episodes_detail": [
+    {
+      "seed": 42,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.020200001017656177,
+        0.014500001270789653,
+        0.019999999494757503
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 15.6
+    },
+    {
+      "seed": 43,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.021500003640539944,
+        0.023200002033263445
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 10.7
+    },
+    {
+      "seed": 44,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.015700003132224083,
+        0.022400003217626363
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.6
+    },
+    {
+      "seed": 45,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.021899999410379678,
+        0.01809999957913533,
+        0.017100006516557187,
+        0.022300002456177026
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 4,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 4,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 18.1
+    },
+    {
+      "seed": 46,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.018200000340584666
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 47,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.022499996703118086,
+        0.019500002963468432
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.1
+    },
+    {
+      "seed": 48,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.023399996280204505,
+        0.02269999822601676,
+        0.0261999957729131,
+        0.01599999814061448
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 3,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 19.8
+    },
+    {
+      "seed": 49,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.021800005924887955
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.7
+    },
+    {
+      "seed": 50,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.02160000440198928
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.5
+    },
+    {
+      "seed": 51,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.018600003386382014,
+        0.021500003640539944,
+        0.026599998818710446,
+        0.02179999864893034
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 19.2
+    },
+    {
+      "seed": 52,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.020600004063453525,
+        0.019999999494757503,
+        0.024199995095841587
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 15.4
+    },
+    {
+      "seed": 53,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.018999999156221747
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [
+        {
+          "type": "wrong_placement",
+          "step": 2,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 6.7
+    },
+    {
+      "seed": 54,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.0168999977177009,
+        0.022300002456177026,
+        0.017899998056236655,
+        0.05499999679159373
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.9
+    },
+    {
+      "seed": 55,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.022799998987466097
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.5
+    },
+    {
+      "seed": 56,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.02220000169472769
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [
+        {
+          "type": "wrong_placement",
+          "step": 2,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 57,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.020499996026046574
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [
+        {
+          "type": "wrong_placement",
+          "step": 2,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 7.4
+    },
+    {
+      "seed": 58,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.02699999458855018,
+        0.021100000594742596,
+        0.03149999974993989,
+        0.017600003047846258
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 20.0
+    },
+    {
+      "seed": 59,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.02469999890308827
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.2
+    },
+    {
+      "seed": 60,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.022100000933278352,
+        0.021200001356191933,
+        0.02160000440198928,
+        0.025800000003073364
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 16.8
+    },
+    {
+      "seed": 61,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.020899999071843922,
+        0.020200001017656177,
+        0.028100002964492887,
+        0.02439999661874026
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 19.9
+    },
+    {
+      "seed": 62,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.01939999492606148,
+        0.01580000389367342,
+        0.021100000594742596,
+        0.023200002033263445
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 4,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.8
+    },
+    {
+      "seed": 63,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.01599999814061448,
+        0.03169999399688095
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.6
+    },
+    {
+      "seed": 64,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.02359999780310318,
+        0.016199999663513154,
+        0.021299994841683656,
+        0.021100000594742596
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 3,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "wrong_placement",
+          "step": 5,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 20.1
+    },
+    {
+      "seed": 65,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.020200001017656177,
+        0.030399998649954796,
+        0.02160000440198928,
+        0.02179999864893034
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.3
+    },
+    {
+      "seed": 66,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.02149999636458233
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.7
+    },
+    {
+      "seed": 67,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.01599999814061448,
+        0.024000000848900527
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.9
+    },
+    {
+      "seed": 68,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.021400002879090607
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 69,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.029100003303028643,
+        0.02269999822601676
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "wrong_placement",
+          "step": 3,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.6
+    },
+    {
+      "seed": 70,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.01840000186348334,
+        0.025800000003073364,
+        0.02119999408023432,
+        0.023500004317611456
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 20.1
+    },
+    {
+      "seed": 71,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.018900005670730025
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.7
+    },
+    {
+      "seed": 72,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.02149999636458233,
+        0.029499999072868377
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 10.7
+    },
+    {
+      "seed": 73,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.02439999661874026,
+        0.022899999748915434
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.0
+    },
+    {
+      "seed": 74,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.019400002202019095
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.4
+    },
+    {
+      "seed": 75,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.02040000254055485,
+        0.021899999410379678,
+        0.019400002202019095,
+        0.021899999410379678
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.2
+    },
+    {
+      "seed": 76,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01460000203223899
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.6
+    },
+    {
+      "seed": 77,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.020200001017656177,
+        0.02099999983329326,
+        0.021899999410379678,
+        0.0242000023717992
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 3,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 4,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 18.2
+    },
+    {
+      "seed": 78,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.022899999748915434,
+        0.022799998987466097,
+        0.0168999977177009
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 16.7
+    },
+    {
+      "seed": 79,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.02040000254055485,
+        0.02269999822601676
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.5
+    },
+    {
+      "seed": 80,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.01799999881768599,
+        0.023200002033263445,
+        0.025699999241624027,
+        0.02300000051036477
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 3,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 19.8
+    },
+    {
+      "seed": 81,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.055000004067551345,
+        0.022000000171829015,
+        0.02319999475730583,
+        0.0225000039790757
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 20.0
+    },
+    {
+      "seed": 82,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.015899997379165143,
+        0.01460000203223899,
+        0.016000005416572094,
+        0.014999997802078724
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 3,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "wrong_placement",
+          "step": 5,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 18.8
+    },
+    {
+      "seed": 83,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.021400002879090607,
+        0.021500003640539944
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "wrong_placement",
+          "step": 3,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 10.7
+    },
+    {
+      "seed": 84,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.019500002963468432,
+        0.022799998987466097
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.7
+    },
+    {
+      "seed": 85,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.02559999848017469,
+        0.032300005841534585,
+        0.020200001017656177,
+        0.022499996703118086
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.8
+    },
+    {
+      "seed": 86,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.020600004063453525,
+        0.01840000186348334,
+        0.022400003217626363,
+        0.022300002456177026
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 3,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 19.9
+    },
+    {
+      "seed": 87,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.020799998310394585
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 88,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.0191000071936287
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.9
+    },
+    {
+      "seed": 89,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.01679999695625156,
+        0.021699997887481004,
+        0.022899999748915434
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 15.3
+    },
+    {
+      "seed": 90,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.03239999932702631,
+        0.022899999748915434
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "wrong_placement",
+          "step": 3,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 11.5
+    },
+    {
+      "seed": 91,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.019700004486367106,
+        0.022199994418770075
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 10.9
+    },
+    {
+      "seed": 92,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.024299995857290924,
+        0.021100000594742596,
+        0.017899998056236655
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 15.3
+    },
+    {
+      "seed": 93,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.016199999663513154
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [
+        {
+          "type": "wrong_placement",
+          "step": 2,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 6.6
+    },
+    {
+      "seed": 94,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01630000042496249
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.4
+    },
+    {
+      "seed": 95,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.021400002879090607,
+        0.016599995433352888,
+        0.01889999839477241,
+        0.023299995518755168
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 3,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 20.0
+    },
+    {
+      "seed": 96,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.024299995857290924,
+        0.025699999241624027,
+        0.04340000305091962,
+        0.021699997887481004
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "wrong_placement",
+          "step": 5,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 19.9
+    },
+    {
+      "seed": 97,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.02050000330200419,
+        0.03460000152699649
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.1
+    },
+    {
+      "seed": 98,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.021699997887481004
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.8
+    },
+    {
+      "seed": 99,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.036499994166661054
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.4
+    },
+    {
+      "seed": 100,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.025399996957276016
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.2
+    },
+    {
+      "seed": 101,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.01750000228639692,
+        0.022400003217626363,
+        0.024300003133248538
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 15.9
+    },
+    {
+      "seed": 102,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.020200001017656177,
+        0.02600000152597204,
+        0.027900001441594213
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 15.3
+    },
+    {
+      "seed": 103,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01769999653333798
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [
+        {
+          "type": "wrong_placement",
+          "step": 2,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 7.3
+    },
+    {
+      "seed": 104,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.01479999627918005,
+        0.024500004656147212,
+        0.022400003217626363,
+        0.02269999822601676
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 4,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 19.0
+    },
+    {
+      "seed": 105,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.02349999704165384
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.4
+    },
+    {
+      "seed": 106,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.019999999494757503,
+        0.021700005163438618,
+        0.021100000594742596,
+        0.01979999797185883
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.5
+    },
+    {
+      "seed": 107,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.019899998733308166,
+        0.018500002624932677,
+        0.024700006179045886,
+        0.033700001949910074
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 4,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.8
+    },
+    {
+      "seed": 108,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.022300002456177026,
+        0.0225000039790757
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "wrong_placement",
+          "step": 3,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 12.2
+    },
+    {
+      "seed": 109,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.02390000008745119,
+        0.027499998395796865,
+        0.02529999619582668
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        },
+        {
+          "type": "wrong_placement",
+          "step": 4,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 16.5
+    },
+    {
+      "seed": 110,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.017099999240599573,
+        0.019400002202019095,
+        0.017899998056236655,
+        0.006399997801054269
+      ],
+      "plan_errors": [
+        "empty_plan",
+        "empty_plan",
+        "empty_plan"
+      ],
+      "actions": 1,
+      "replans": 3,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 1,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 5.0
+    },
+    {
+      "seed": 111,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.020300001779105514,
+        0.02269999822601676
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.1
+    },
+    {
+      "seed": 112,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.018500002624932677,
+        0.021299994841683656,
+        0.02220000169472769
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 16.7
+    },
+    {
+      "seed": 113,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.02349999704165384
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.5
+    },
+    {
+      "seed": 114,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.021500003640539944,
+        0.029800001357216388
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.3
+    },
+    {
+      "seed": 115,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.04269999772077426,
+        0.032999996619764715
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.4
+    },
+    {
+      "seed": 116,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.03530000685714185,
+        0.02390000008745119,
+        0.018699996871873736,
+        0.024499997380189598
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 18.1
+    },
+    {
+      "seed": 117,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01930000144056976
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.6
+    },
+    {
+      "seed": 118,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.019099999917671084,
+        0.03210000431863591
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.8
+    },
+    {
+      "seed": 119,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.020699997548945248,
+        0.06940000457689166,
+        0.016699996194802225
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 15.8
+    },
+    {
+      "seed": 120,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.02010000025620684,
+        0.023399996280204505,
+        0.03300000389572233,
+        0.024700006179045886
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 4,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 18.5
+    },
+    {
+      "seed": 121,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.019599996448960155,
+        0.020899999071843922,
+        0.02269999822601676,
+        0.016199999663513154
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.5
+    },
+    {
+      "seed": 122,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.016500001947861165
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.6
+    },
+    {
+      "seed": 123,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01599999814061448
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.0
+    },
+    {
+      "seed": 124,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.022400003217626363,
+        0.014999997802078724,
+        0.019899998733308166,
+        0.02179999864893034
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 4,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 18.4
+    },
+    {
+      "seed": 125,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.020799998310394585,
+        0.022899999748915434,
+        0.02510000194888562,
+        0.024000000848900527
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 4,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.4
+    },
+    {
+      "seed": 126,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.020899999071843922,
+        0.012399999832268804,
+        0.023200002033263445,
+        0.02390000008745119
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 3,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 19.8
+    },
+    {
+      "seed": 127,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.020200001017656177,
+        0.020699997548945248,
+        0.023500004317611456
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 16.0
+    },
+    {
+      "seed": 128,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.019800005247816443,
+        0.022899999748915434
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 1,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.1
+    },
+    {
+      "seed": 129,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.022400003217626363
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 130,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.01889999839477241,
+        0.02130000211764127
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.7
+    },
+    {
+      "seed": 131,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.01889999839477241
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.1
+    },
+    {
+      "seed": 132,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.019400002202019095,
+        0.02149999636458233,
+        0.017300000763498247,
+        0.026900001103058457
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.2
+    },
+    {
+      "seed": 133,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.020600004063453525
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.4
+    },
+    {
+      "seed": 134,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.029000002541579306,
+        0.02059999678749591
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 11.2
+    },
+    {
+      "seed": 135,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.01679999695625156,
+        0.014099998224992305,
+        0.019700004486367106,
+        0.021599997126031667
+      ],
+      "plan_errors": [],
+      "actions": 5,
+      "replans": 3,
+      "verif_fail": 3,
+      "false_alarms": 0,
+      "missed": 1,
+      "verifs": 5,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "wrong_placement",
+          "step": 5,
+          "detected": false,
+          "diagnosis": null,
+          "recovered": false,
+          "diag_correct": null
+        }
+      ],
+      "failure": "placement_or_grasp",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 19.3
+    },
+    {
+      "seed": 136,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.03279999509686604
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 7.4
+    },
+    {
+      "seed": 137,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.01990000600926578,
+        0.031200004741549492,
+        0.017799997294787318,
+        0.015899997379165143
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.9
+    },
+    {
+      "seed": 138,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.020799998310394585,
+        0.024100001610349864,
+        0.01790000533219427,
+        0.01460000203223899
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 4,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.9
+    },
+    {
+      "seed": 139,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.019400002202019095,
+        0.015400000847876072,
+        0.02439999661874026
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 15.7
+    },
+    {
+      "seed": 140,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.02319999475730583,
+        0.02300000051036477,
+        0.021100000594742596,
+        0.01979999797185883
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 3,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.1
+    },
+    {
+      "seed": 141,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.020899999071843922,
+        0.02149999636458233
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 10.7
+    }
+  ]
+}

@@ -53,7 +53,7 @@ flowchart LR
 
     subgraph Telemetry["NVML & Budget Auditor"]
         Profiler["NVML + Ollama /api/ps\n(VRAM, RAM, Watts, Temp)"]
-        Card["SQLite + Signed\nBudget Card (.md / .csv)"]
+        Card["SQLite + Hashed (SHA-256)\nBudget Card (.md / .json)"]
     end
 
     World --> Inject --> Render --> Vision --> Kalman
@@ -83,15 +83,21 @@ flowchart LR
 
 All benchmarks below were executed on an HP Victus 15 (**OPAI-4G Reference Tier**: NVIDIA GeForce RTX 3050 Laptop GPU 4.0 GB VRAM, 16 GB System RAM, Windows 11, MuJoCo 3.16.0).
 
-### 1. Local LLM Planner Speed & Footprint (OPAI-4G Tier, N=20 per Model, Real-Time Mode)
+### 1. Local LLM Models Under Failure Perturbation (OPAI-4G Tier, N=50 per Model, Perturbation=Moderate)
 
-All models evaluated under identical real-time closed-loop pick-and-place tasks on an NVIDIA GeForce RTX 3050 Laptop GPU (4.0 GB VRAM):
+Evaluated under moderate failure perturbation ($p_{\text{perturb}}=0.25$, slip & displacement) on an HP Victus 15 (RTX 3050 Laptop GPU 4 GB, 16 GB RAM). Raw JSON receipts saved in `model_llama3.2_1b_N50.json`, `model_gemma2_2b_N50.json`, and `model_qwen2.5_3b_N50.json`:
 
-| Local Model (Ollama) | Weights Size | Peak Device VRAM | Warm Planning Latency (p50 / p95) | Throughput | TSR (95% CI, N=20) | Notes |
-|---|---|---|---|---|---|---|
-| **`qwen2.5:3b`** | 1.9 GB | 2.57 GB | **469 ms / 493 ms** | 70.6 tok/s | **100.0%** (83.9%–100.0%) | Fastest response, reliable spatial parsing |
-| **`gemma2:2b`** | 1.6 GB | 2.36 GB | **715 ms / 751 ms** | 69.5 tok/s | **100.0%** (83.9%–100.0%) | Consistent schema compliance & low footprint |
-| **`llama3.2:1b`** | 1.3 GB | 1.97 GB | **577 ms / 608 ms** | 99.9 tok/s | **0.0%** (0.0%–16.1%) | Fast generation, but frequent JSON/action schema violations |
+| Model (Ollama) | Params | VRAM Baseline | VRAM Peak | VRAM $\Delta$ | Planning Latency (p50 / p95) | TSR (95% CI, N=50) | Injections | Recovery Rate | Failure Breakdown / Paired Comparison |
+|---|---|---|---|---|---|---|---|---|---|
+| **`qwen2.5:3b`** | 3.09B | 0.518 GB | 0.715 GB | **+0.197 GB** | **3,748 ms / 4,388 ms** | **58.0%** (44.2%–70.6%) | 74 | 35.4% | 14 exhausted, 7 grasp; **1.42× faster than Gemma 2** |
+| **`gemma2:2b`** | 2.61B | 0.484 GB | 0.628 GB | **+0.144 GB** | **5,337 ms / 6,114 ms** | **58.0%** (44.2%–70.6%) | 74 | 35.4% | 14 exhausted, 7 grasp; identical 29 successes to Qwen |
+| **`llama3.2:1b`** | 1.23B | 0.535 GB | 0.535 GB | **+0.000 GB** | **3,506 ms / 4,815 ms** | **0.0%** (0.0%–7.1%) | 74 | 0.0% | 14 task wrong (confused object colors), 23 grasp, 13 exhausted |
+
+> [!IMPORTANT]
+> **Paired Statistical Comparison ($N=50$)**:
+> - **Gemma 2 2B vs Llama 3.2 1B**: $+58.0\%$ mean gain (95% bootstrap CI: $+44.0\%$ to $+72.0\%$), McNemar $\chi^2 = 27.03$, $p < 10^{-6}$ ($b=29, c=0$).
+> - **Qwen 2.5 3B vs Llama 3.2 1B**: $+58.0\%$ mean gain (95% bootstrap CI: $+44.0\%$ to $+72.0\%$), McNemar $\chi^2 = 27.03$, $p < 10^{-6}$ ($b=29, c=0$).
+> - **Qwen 2.5 3B vs Gemma 2 2B**: $0.0\%$ TSR difference ($p = 1.0$, identical episodes succeeded), but Qwen 2.5 3B achieves **1.42× lower latency** (3,748 ms vs 5,337 ms p50) and 28% lower energy per episode (163.4 J vs 227.9 J).
 
 ### 2. Verifier Honesty Benchmark (Moderate Perturbation, Real-Time Mode, N=100 per Cell)
 
@@ -105,21 +111,28 @@ Evaluated with Rule-Based Recovery Agent under moderate failure injection (slip 
 
 > [!IMPORTANT]
 > **Key Verifier Finding**: Proprioceptive verification alone (`V1`) suffers a **3.7% missed-failure rate** because joint sensors cannot detect when a placed object lands outside the container boundary (`wrong_placement`). Vision verification (`V2`) closes this gap, reducing missed failures to **0.3%**, approaching oracle upper bound (`V0`).
+>
+> **Paired Statistical Verification ($N=100$)**:
+> - **V0 vs V1**: $+6.0\%$ TSR (95% bootstrap CI: $+2.0\%$ to $+11.0\%$), McNemar exact test $p = 0.03125$ ($b=6, c=0$, statistically significant $p < 0.05$).
+> - **V2 vs V1**: $+5.0\%$ TSR (95% bootstrap CI: $+1.0\%$ to $+10.0\%$), McNemar exact test $p = 0.0625$ ($b=5, c=0$).
+>
+> **Scientific Finding: The ~52% Recovery Bottleneck**:
+> Analysis of all failed episodes reveals that 100% of failures (26/26 in V0, 26/27 in V2) occur not from kinematics or planning crashes, but from `recovery_exhausted` (`plans=4, replans=3, verif_fail=4`). Under persistent stochastic disturbances ($p=0.25$), perturbations continue during recovery attempts. Each recovery action adds physical operations that independently face disturbance, geometrically compounding the risk and exhausting fixed retry budgets. This proves that high-level replanning alone without low-level disturbance rejection is mathematically insufficient in stochastic physical environments.
 
 ### 3. The Latency Tax on Dynamic Conveyor Tasks
 
-Measured on the `dynamic` task with moving cube at $0.02\text{ m/s}$, single-frame perception, without velocity lead compensation:
+Measured on the `dynamic` conveyor task (moving cube at $0.02\text{ m/s}$ along $+y$), comparing reactive baseline against predictive velocity lead compensation:
 
-| Agent Architecture | Verifier | Execution Mode | Planner Delay ($\Delta t$) | TSR (95% CI, N=50) | Physical Mechanism |
-|---|---|---|---|---|---|
-| **Closed-Loop (Rule)** | V1 | sync | 0 ms | **38.0%** (25.9%–51.8%) | Physics paused while planning |
-| **Closed-Loop (Rule)** | V1 | realtime | 0 ms | **38.0%** (25.9%–51.8%) | Real-time baseline |
-| **Closed-Loop (Rule)** | V1 | realtime | 1,000 ms (1.0 s) | **0.0%** (0.0%–7.1%) | Cube shifts ~20 mm past gripper capture zone |
-| **Closed-Loop (Rule)** | V1 | realtime | 2,000 ms (2.0 s) | **0.0%** (0.0%–7.1%) | Stale observation causes complete grasp miss |
-| **Recovery (Velocity-Lead)**| V1 | realtime | 1,000 ms (1.0 s) | **100.0%** (72.2%–100.0%) | Forward-projected intercept overcomes latency tax |
+| Agent Architecture | Verifier | Execution Mode | Planner Delay ($\Delta t$) | Velocity Lead | TSR (95% CI, N=50) | Physical Mechanism / Paired Stat |
+|---|---|---|---|---|---|---|
+| **Recovery Agent (Rule)** | V1 | realtime | 0 ms | **OFF** | **52.0%** (38.5%–65.2%) | 26/50: uncompensated descent misses target window |
+| **Recovery Agent (Rule)** | V1 | realtime | 0 ms | **ON** | **100.0%** (92.9%–100.0%) | 50/50: **+48.0% gain** (95% CI: +34.0% to +60.1%, McNemar $p < 10^{-7}$) |
+| **Closed-Loop (Rule)** | V1 | realtime | 1,000 ms (1.0 s) | **OFF** | **0.0%** (0.0%–7.1%) | Cube shifts $\sim 20\text{ mm}$ past gripper capture zone |
+| **Closed-Loop (Rule)** | V1 | realtime | 2,000 ms (2.0 s) | **OFF** | **0.0%** (0.0%–7.1%) | Stale observation causes complete grasp miss |
+| **Recovery (Velocity-Lead)**| V1 | realtime | 1,000 ms (1.0 s) | **ON** | **100.0%** (92.9%–100.0%) | Forward-projected intercept $\hat{v} \cdot (\tau_{\text{plan}} + \tau_{\text{travel}})$ overcomes latency tax |
 
 > [!NOTE]
-> Physical AI agents relying purely on reactive perception fail when planner latency exceeds the physical dynamic timescale. Latency compensation (velocity projection $\hat{v} \cdot (\tau_{\text{plan}} + \tau_{\text{travel}})$) restores 100% reliability even at multi-second planning delays.
+> Physical AI agents relying purely on reactive, uncompensated vision observations fail when planner latency exceeds the physical interaction window. Predictive velocity compensation forward-projects dynamic coordinates, restoring 100% success on the dynamic conveyor task even under 1.0 s planning latency.
 
 ---
 

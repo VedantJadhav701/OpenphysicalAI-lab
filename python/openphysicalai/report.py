@@ -22,7 +22,7 @@ def budget_card(r: Dict) -> str:
     ]
     for k in b["checks"]:
         lines.append(f"| {k['name']} | {k['value'] if k['value'] is not None else '-'} | {k['cap']} | {'yes' if k['ok'] else 'NO'} | {k['note']} |")
-    lines += ["", f"VRAM process source: {p['vram_process_source']}. Device baseline before run: {p.get('vram_device_baseline_gb')} GB.",
+    lines += ["", f"VRAM accounting: device baseline {p.get('vram_device_baseline_gb')} GB -> peak {p.get('vram_device_peak_gb')} GB (delta +{p.get('vram_device_delta_gb')} GB). Process source: {p['vram_process_source']}.",
               "", "## Capability and reliability", "",
               f"- Task success: {_p(m['tsr'])} (95% CI {_p(m['tsr_ci'][0])} to {_p(m['tsr_ci'][1])}), {m['successes']}/{m['episodes']}",
               f"- Plan latency p50/p95/p99: {m['latency_ms']['p50']:.0f} / {m['latency_ms']['p95']:.0f} / {m['latency_ms']['p99']:.0f} ms",

@@ -41,7 +41,7 @@
     <canvas id="arm" aria-label="Animated robot arm performing pick and place with a grasp slip and recovery" role="img"></canvas>
     <div class="hero-fade"></div>
     <div class="hero-copy">
-      <span class="pill"><i class="dot"></i> Open source · Apache-2.0 · v0.2.1</span>
+      <span class="pill"><i class="dot"></i> Open source · Apache-2.0 · v0.2.2</span>
       <h1>Evaluate Physical AI<br>under <span class="grad">real budgets.</span></h1>
       <p class="lead">Real MuJoCo physics, a world that keeps moving while your model thinks, and measured VRAM, RAM, latency and energy. Engineered to run entirely on a <strong>4&nbsp;GB VRAM laptop</strong>.</p>
       <div class="cta">
@@ -86,26 +86,26 @@
   <!-- APP PREVIEW / SCREENSHOT GALLERY -->
   <section class="sec alt" id="preview">
     <div class="wrap">
-      <p class="eyebrow rv">Desktop Workbench</p>
-      <h2 class="rv">Engineered like a modern Physical AI pendant.</h2>
-      <p class="sub rv">Clean touch-and-desktop interface with live GPU telemetry, multi-camera views, and reproducible Budget Cards.</p>
-      <div class="gallery-grid rv">
+      <p class="eyebrow">Desktop Workbench</p>
+      <h2>Engineered like a modern Physical AI pendant.</h2>
+      <p class="sub">Clean touch-and-desktop interface with live GPU telemetry, multi-camera views, and reproducible Budget Cards.</p>
+      <div class="gallery-grid">
         <div class="gallery-card">
-          <img src="assets/screen-home.png" alt="OpenPhysicalAI Lab Home Screen" loading="lazy">
+          <img src="assets/screen-home.png" alt="OpenPhysicalAI Lab Home Screen">
           <div class="gallery-meta">
             <h4>Live Hardware Hub</h4>
             <p>One-click diagnostics, hardware tier classification (OPAI-4G), and local Ollama model management.</p>
           </div>
         </div>
         <div class="gallery-card">
-          <img src="assets/screen-run.png" alt="Real-time 3D Simulation Workbench" loading="lazy">
+          <img src="assets/screen-run.png" alt="Real-time 3D Simulation Workbench">
           <div class="gallery-meta">
             <h4>Real-Time 3D Simulation</h4>
             <p>High-speed 432 FPS MuJoCo rendering with joint telemetry, interactive poke triggers, and vision tracking.</p>
           </div>
         </div>
         <div class="gallery-card">
-          <img src="assets/screen-card.png" alt="Audited Budget Card" loading="lazy">
+          <img src="assets/screen-card.png" alt="Audited Budget Card">
           <div class="gallery-meta">
             <h4>Audited Budget Cards</h4>
             <p>Enforced VRAM, RAM, and latency caps. Exportable run receipts with one-click reproducible CLI commands.</p>
@@ -144,15 +144,15 @@
 
       <div class="grid3">
         <article class="card rv">
-          <h3>The latency tax</h3><p class="mini">Dynamic conveyor task · closed-loop rule agent · N = 50</p>
+          <h3>The latency tax</h3><p class="mini">Dynamic conveyor task · N = 50 per cell · Real-time</p>
           <div class="bars">
-            <div class="bar" data-v="38"><span>Sync · 0 ms</span><i><u></u></i><b>38%</b></div>
-            <div class="bar" data-v="38"><span>Real-time · 0 ms</span><i><u></u></i><b>38%</b></div>
-            <div class="bar red" data-v="0"><span>Real-time · 1 s</span><i><u></u></i><b>0%</b></div>
-            <div class="bar red" data-v="0"><span>Real-time · 2 s</span><i><u></u></i><b>0%</b></div>
+            <div class="bar" data-v="52"><span>Reactive (no lead)</span><i><u></u></i><b>52%</b></div>
+            <div class="bar green" data-v="100"><span>Velocity lead ON</span><i><u></u></i><b>100%</b></div>
+            <div class="bar red" data-v="0"><span>Reactive · 1 s delay</span><i><u></u></i><b>0%</b></div>
+            <div class="bar red" data-v="0"><span>Reactive · 2 s delay</span><i><u></u></i><b>0%</b></div>
             <div class="bar green" data-v="100"><span>Velocity lead · 1 s</span><i><u></u></i><b>100%</b></div>
           </div>
-          <p class="fine">Velocity-lead row: recovery agent, small sample (95% CI 72.2 to 100%).</p>
+          <p class="fine">Predictive velocity compensation delivers +48.0% paired gain (95% CI +34.0 to +60.1%, McNemar p &lt; 10⁻⁷).</p>
         </article>
         <article class="card rv">
           <h3>Verifier honesty</h3><p class="mini">Pick &amp; place · moderate failures · real-time · N = 100 per row</p>
@@ -161,17 +161,17 @@
             <div class="bar" data-v="68"><span>V1 proprioception</span><i><u></u></i><b>68%</b></div>
             <div class="bar" data-v="73"><span>V2 + camera</span><i><u></u></i><b>73%</b></div>
           </div>
-          <ul class="kv"><li><span>Missed failures</span><b>V0 0.0% · V1 3.7% · V2 0.3%</b></li><li><span>95% CI</span><b>64.6–81.6 · 58.3–76.3 · 63.6–80.7</b></li></ul>
-          <p class="fine">Success intervals overlap. The finding is the missed-failure gap: joint sensors cannot see a cube that landed outside the container.</p>
+          <ul class="kv"><li><span>Missed failures</span><b>V0 0.0% · V1 3.7% · V2 0.3%</b></li><li><span>Paired proof</span><b>V0 vs V1: +6.0% (p = 0.031) · V2 vs V1: +5.0%</b></li></ul>
+          <p class="fine">Detection is 88–97%; recovery is ~52% because compounding disturbances exhaust the fixed 3-replan budget.</p>
         </article>
         <article class="card rv">
-          <h3>Fits a 4 GB card</h3><p class="mini">Warm planning latency · N = 20 each · OPAI-4G tier</p>
+          <h3>Models under perturbation</h3><p class="mini">Moderate slip/displacement · N = 50 per model · 4 GB GPU</p>
           <div class="models">
-            <div><b>qwen2.5:3b</b><span>2.57 GB · 469 ms p50 · 100% TSR</span></div>
-            <div><b>gemma2:2b</b><span>2.36 GB · 715 ms p50 · 100% TSR</span></div>
-            <div class="bad"><b>llama3.2:1b</b><span>1.97 GB · 577 ms p50 · 0% TSR (JSON schema violations)</span></div>
+            <div><b>qwen2.5:3b</b><span>3.7 s p50 · +0.20 GB VRAM · 58.0% TSR</span></div>
+            <div><b>gemma2:2b</b><span>5.3 s p50 · +0.14 GB VRAM · 58.0% TSR</span></div>
+            <div class="bad"><b>llama3.2:1b</b><span>3.5 s p50 · +0.00 GB VRAM · 0.0% TSR (14 task wrong)</span></div>
           </div>
-          <p class="fine">Fast is not enough: a 1B model generated quickly and failed the action schema.</p>
+          <p class="fine">Gemma 2 and Qwen 2.5 tie on paired success (+58.0% vs Llama, p &lt; 10⁻⁶), but Qwen 2.5 is 1.42× faster.</p>
         </article>
       </div>
     </div>
