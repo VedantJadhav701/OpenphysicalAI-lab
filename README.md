@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="logo-horizontal-dark.png" alt="OpenPhysicalAI Lab Logo" width="560" />
+<img src="assets/logo-horizontal-dark.png" alt="OpenPhysicalAI Lab Logo" width="560" />
 
 <br/><br/>
 
@@ -17,7 +17,7 @@
 
 ### 🎬 Interactive Lab Workbench & Real-Time Physical Simulation
 
-<img src="demo.gif" alt="OpenPhysicalAI Lab Real-Time Demo" width="100%" />
+<img src="assets/demo.gif" alt="OpenPhysicalAI Lab Real-Time Demo" width="100%" />
 
 </div>
 
@@ -199,15 +199,21 @@ Run `opai doctor` and `opai run` on your machine, copy the reproducible run comm
 ## 🗂️ Repository Layout
 
 ```text
-├── main.js / preload.js         # Electron main process, Conda auto-discovery, single-instance lock
-├── start-app.bat                # One-click Windows launcher
-├── src/                         # iOS-style Electron frontend UI
-├── python/
+├── assets/                      # Brand assets, logos, GIFs, and app screenshots
+├── benchmarks/                  # Evaluator runs, N=50/100 receipts, and paired stat scripts
+├── configs/                     # Default budget profiles and tier configurations
+├── docs/                        # Specifications, roadmap, and deployment guides
+├── landing/                     # Web landing page deployed on Vercel
+├── media/                       # Launch videos, walkthrough MP4s, and voiceover audio
+├── src/                         # iOS-style Electron frontend desktop workbench
+├── python/                      # Core engine: MuJoCo sim, perception, local planners,
+│   │                            # verifiers, failure injector, profiler, and opai CLI
 │   ├── gate1.py                 # 200-scene deterministic Phase-1 physics gate
 │   ├── tests/                   # Pytest unit & integration test suite
-│   └── openphysicalai/          # Core engine: sim, tasks, skills, perception, render (3D GPU),
-│                                # planners, injection, runner, profiler, budget, store, cli
-└── docs/                        # Architectural roadmap & experimental specifications
+│   └── openphysicalai/          # Python library package
+├── main.js / preload.js         # Electron main process, auto-env bootstrap, single lock
+├── start-app.bat                # One-click Windows launcher
+└── package.json                 # Desktop app distribution specification
 ```
 
 ---

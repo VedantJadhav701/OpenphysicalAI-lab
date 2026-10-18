@@ -1,0 +1,296 @@
+{
+  "id": "run_e4d9903386",
+  "created": "2026-10-17T19:01:08.826179+00:00",
+  "version": "0.2.1",
+  "config": {
+    "task": "pick_place",
+    "policy": "rule",
+    "agent": "recovery",
+    "perception": "oracle",
+    "verifier": "V1",
+    "perturb": "moderate",
+    "mode": "sync",
+    "episodes": 5,
+    "seed": 0,
+    "budget": "standard",
+    "extra_latency_ms": 0.0,
+    "velocity_lead": true,
+    "max_attempts": 3,
+    "ollama_host": "http://127.0.0.1:11434",
+    "frames": false,
+    "camera_mode": "3d",
+    "label": ""
+  },
+  "policy_name": "rule-based",
+  "track": "scripted",
+  "assist": "A3",
+  "profile": {
+    "vram_device_baseline_gb": 2.592,
+    "vram_device_peak_gb": 2.592,
+    "vram_process_peak_gb": 2.027,
+    "vram_process_source": "ollama /api/ps + 3d gl context",
+    "ram_process_peak_gb": 0.216,
+    "ram_system_peak_gb": 14.33,
+    "gpu_name": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "gpu_total_gb": 4.0,
+    "energy_j": 10.6,
+    "temp_peak_c": 57,
+    "throttled_any": false,
+    "samples": 7,
+    "duration_s": 0.89,
+    "confidence": "high",
+    "vram_ollama_peak_gb": 1.8468847647309303
+  },
+  "wall_s": 0.9,
+  "metrics": {
+    "episodes": 5,
+    "successes": 4,
+    "tsr": 0.8,
+    "tsr_ci": [
+      0.3755282641185388,
+      0.9637768390302125
+    ],
+    "latency_ms": {
+      "p50": 0.02130000211764127,
+      "p95": 0.12840000272262841,
+      "p99": 0.2103200036799536,
+      "mean": 0.04015454628229649
+    },
+    "deadline_miss_rate": 0.0,
+    "staleness_s_mean": 0.0,
+    "plans_per_episode": 2.2,
+    "actions_per_episode": 3.0,
+    "sim_time_s_mean": 11.52,
+    "failures_injected": 5,
+    "detection_rate": 1.0,
+    "recovery_rate": 0.2,
+    "diagnosis_accuracy": 0.8,
+    "false_alarm_rate": 0.0,
+    "missed_failure_rate": 0.0,
+    "failure_breakdown": {
+      "recovery_exhausted": 1
+    },
+    "tokens_per_s_mean": null,
+    "energy_j_per_episode": 2.12
+  },
+  "budget": {
+    "profile": "standard",
+    "pass": false,
+    "checks": [
+      {
+        "name": "vram_process_peak_gb",
+        "value": 2.027,
+        "cap": 3.2,
+        "ok": true,
+        "note": ""
+      },
+      {
+        "name": "vram_device_peak_gb",
+        "value": 2.592,
+        "cap": 3.8,
+        "ok": true,
+        "note": ""
+      },
+      {
+        "name": "ram_process_peak_gb",
+        "value": 0.216,
+        "cap": 8.0,
+        "ok": true,
+        "note": ""
+      },
+      {
+        "name": "ram_system_peak_gb",
+        "value": 14.33,
+        "cap": 14.0,
+        "ok": false,
+        "note": ""
+      },
+      {
+        "name": "planning_ms_p95",
+        "value": 0.12840000272262841,
+        "cap": 2500.0,
+        "ok": true,
+        "note": ""
+      }
+    ]
+  },
+  "episodes_detail": [
+    {
+      "seed": 0,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.2308000039192848
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.7
+    },
+    {
+      "seed": 1,
+      "task": "pick_place",
+      "plans": 4,
+      "plan_latencies_ms": [
+        0.018699996871873736,
+        0.023200002033263445,
+        0.02130000211764127,
+        0.01990000600926578
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 3,
+      "verif_fail": 4,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "object_displaced",
+          "step": 1,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "grasp_miss",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "object_displaced",
+          "step": 2,
+          "object": "cube_0",
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": false
+        },
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        },
+        {
+          "type": "grasp_slip",
+          "step": 3,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": false,
+          "diag_correct": true
+        }
+      ],
+      "failure": "recovery_exhausted",
+      "tok_per_s": [],
+      "success": false,
+      "sim_time_s": 17.7
+    },
+    {
+      "seed": 2,
+      "task": "pick_place",
+      "plans": 3,
+      "plan_latencies_ms": [
+        0.01799999881768599,
+        0.02600000152597204,
+        0.023399996280204505
+      ],
+      "plan_errors": [],
+      "actions": 4,
+      "replans": 2,
+      "verif_fail": 2,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 4,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "events": [
+        {
+          "type": "grasp_slip",
+          "step": 2,
+          "detected": true,
+          "diagnosis": "object_dropped",
+          "recovered": true,
+          "diag_correct": true
+        }
+      ],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 15.7
+    },
+    {
+      "seed": 3,
+      "task": "pick_place",
+      "plans": 1,
+      "plan_latencies_ms": [
+        0.018500002624932677
+      ],
+      "plan_errors": [],
+      "actions": 2,
+      "replans": 0,
+      "verif_fail": 0,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 2,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 6.7
+    },
+    {
+      "seed": 4,
+      "task": "pick_place",
+      "plans": 2,
+      "plan_latencies_ms": [
+        0.022199994418770075,
+        0.019700004486367106
+      ],
+      "plan_errors": [],
+      "actions": 3,
+      "replans": 1,
+      "verif_fail": 1,
+      "false_alarms": 0,
+      "missed": 0,
+      "verifs": 3,
+      "deadline_miss": 0,
+      "staleness_s": [
+        0.0,
+        0.0
+      ],
+      "events": [],
+      "failure": null,
+      "tok_per_s": [],
+      "success": true,
+      "sim_time_s": 10.8
+    }
+  ],
+  "reproduce_command": "opai run --task pick_place --policy rule --agent recovery --perception oracle --verifier V1 --perturb moderate --mode sync --budget standard --episodes 5 --seed 0"
+}
