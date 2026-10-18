@@ -13,3 +13,5 @@ Thumbs.db
 
 budget_card_*.md
 *.png
+!landing/assets/*.png
+!public/*.png
