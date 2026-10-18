@@ -67,7 +67,7 @@ $$('.tabs button').forEach(b => b.addEventListener('click', () => {
 $('#copyPane').addEventListener('click', e => copy($('.term pre.on').innerText, e.currentTarget));
 
 /* ---------- share links ---------- */
-const url = encodeURIComponent(location.href.split('#')[0]), txt = encodeURIComponent('OpenPhysicalAI Lab: open-source Physical AI evaluation under real VRAM, RAM and latency budgets. Runs on a 4 GB laptop.');
+const url = encodeURIComponent(location.href.split('#')[0]), txt = encodeURIComponent('OpenPhysicalAI Lab: open-source Physical AI evaluation under real VRAM, RAM and latency budgets. Runs on 4 GB VRAM laptops onwards, scaling to any workstation.');
 const sh = { x: `https://twitter.com/intent/tweet?text=${txt}&url=${url}`, li: `https://www.linkedin.com/sharing/share-offsite/?url=${url}`, rd: `https://www.reddit.com/submit?url=${url}&title=${txt}`, hn: `https://news.ycombinator.com/submitlink?u=${url}&t=${encodeURIComponent('OpenPhysicalAI Lab: Physical AI evaluation under real hardware budgets')}` };
 $$('#share a').forEach(a => { a.href = sh[a.dataset.s]; });
 

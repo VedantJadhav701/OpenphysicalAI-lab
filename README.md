@@ -4,13 +4,13 @@
 
 <br/><br/>
 
-**Real-Time Embodied AI Simulation, Closed-Loop Failure Recovery & Hardware Budget Benchmarking — Engineered to Run Inside 4 GB VRAM.**
+**Real-Time Embodied AI Simulation, Closed-Loop Failure Recovery & Hardware Budget Benchmarking — Engineered to Run on 4 GB VRAM Laptops Onwards.**
 
 [![PyPI version](https://img.shields.io/pypi/v/openphysicalai?color=blue&label=PyPI%20package)](https://pypi.org/project/openphysicalai/)
 [![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
 [![Phase-1 Gate](https://img.shields.io/badge/Phase--1_Gate-200%2F200_(100%25)-brightgreen.svg)](#verified-benchmarks--scientific-results)
 [![MuJoCo](https://img.shields.io/badge/MuJoCo-3.16.0_3D_GPU-orange.svg)](#system-architecture)
-[![Hardware Tier](https://img.shields.io/badge/Verified_Tier-OPAI--4G_(RTX_3050_4GB)-76b900.svg)](#verified-benchmarks--scientific-results)
+[![Hardware Tier](https://img.shields.io/badge/Hardware_Tier-4GB_VRAM_Onwards_(OPAI--4G+)-76b900.svg)](#verified-benchmarks--scientific-results)
 [![Platform](https://img.shields.io/badge/Platform-Windows_11_%7C_Linux_%7C_macOS-informational.svg)](#quick-start)
 
 <br/>
@@ -25,7 +25,7 @@
 
 ## ⚡ Why OpenPhysicalAI Lab?
 
-Most embodied AI frameworks assume you have a 24 GB RTX 4090 or an 80 GB datacenter GPU. **OpenPhysicalAI Lab** proves that deterministic 3D physics, vision perception, local LLM task planning, and closed-loop failure recovery can run **entirely locally on a 4 GB VRAM laptop (`OPAI-4G`)**.
+Most embodied AI frameworks assume you have a 24 GB RTX 4090 or an 80 GB datacenter GPU. **OpenPhysicalAI Lab** proves that deterministic 3D physics, vision perception, local LLM task planning, and closed-loop failure recovery can run **entirely locally on 4 GB VRAM laptops onwards (`OPAI-4G` baseline)** and seamlessly scale up to 8 GB, 16 GB, 24 GB, or multi-GPU workstations.
 
 Unlike static benchmarks that pause the physics engine while the LLM thinks, OpenPhysicalAI Lab enforces **Real-Time Mode**: the physical world keeps moving while the planner reasons, exposing the true **Latency Tax** of slow models and measuring capability under strict **VRAM, System RAM, Latency, and Energy (Joule) Budget Cards**.
 
@@ -169,7 +169,7 @@ npm start
 ### 3. Pull Recommended Local LLM Planners (Ollama)
 
 ```bash
-# Recommended 4GB-tier models:
+# Recommended lightweight local planners (4GB VRAM onwards):
 ollama pull qwen2.5:3b     # 469 ms latency, 100% TSR
 ollama pull gemma2:2b       # 715 ms latency, 100% TSR
 ```
@@ -192,7 +192,7 @@ Run `opai doctor` and `opai run` on your machine, copy the reproducible run comm
 | **@VedantJadhav701** | HP Victus 15 (RTX 3050 4GB) | `OPAI-4G` | `qwen2.5:3b` | 2.57 GB | 493 ms | **100.0%** (83.9%–100.0%) | ~72 J | ✅ PASS |
 | **@VedantJadhav701** | HP Victus 15 (RTX 3050 4GB) | `OPAI-4G` | `gemma2:2b` | 2.36 GB | 751 ms | **100.0%** (83.9%–100.0%) | ~92 J | ✅ PASS |
 | **@VedantJadhav701** | HP Victus 15 (RTX 3050 4GB) | `OPAI-4G` | `rule-based` | 0.55 GB | 0.03 ms | **73.0%** (63.6%–80.7%, V2, N=100) | 5.2 J | ✅ PASS |
-| *Your GitHub Handle* | *Your GPU / Mac / CPU* | *OPAI-4G/8G/16G* | *Ollama Model* | *Measured GB* | *Measured ms* | *Measured %* | *Measured J* | *Submit PR!* |
+| *Your GitHub Handle* | *Your GPU / Mac / Workstation* | *4GB VRAM onwards (`OPAI-4G/8G/16G/24G`)* | *Any Ollama Model* | *Measured GB* | *Measured ms* | *Measured %* | *Measured J* | *Submit PR!* |
 
 ---
 

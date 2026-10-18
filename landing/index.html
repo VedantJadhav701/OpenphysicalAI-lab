@@ -4,14 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OpenPhysicalAI Lab · Evaluate Physical AI under real budgets</title>
-<meta name="description" content="Open-source, local-first Physical AI evaluation lab. Real MuJoCo physics, real-time latency coupling, closed-loop failure recovery and measured VRAM, RAM, latency and energy budgets. Runs on a 4 GB VRAM laptop.">
+<meta name="description" content="Open-source, local-first Physical AI evaluation lab. Real MuJoCo physics, real-time latency coupling, closed-loop failure recovery and measured VRAM, RAM, latency and energy budgets. Runs on 4 GB VRAM laptops onwards and scales to any GPU.">
 <meta name="theme-color" content="#fcfbf7">
 <link rel="icon" type="image/svg+xml" href="assets/logo-icon.svg">
 <link rel="apple-touch-icon" href="assets/logo-icon-256.png">
 <link rel="canonical" href="/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="OpenPhysicalAI Lab · Evaluate Physical AI under real budgets">
-<meta property="og:description" content="Real MuJoCo physics, a world that keeps moving while your model thinks, and measured VRAM / RAM / latency / energy budgets. Open source. Runs on a 4 GB laptop.">
+<meta property="og:description" content="Real MuJoCo physics, a world that keeps moving while your model thinks, and measured VRAM / RAM / latency / energy budgets. Open source. Runs on 4 GB VRAM laptops onwards.">
 <meta property="og:image" content="assets/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="assets/og.png">
@@ -43,7 +43,7 @@
     <div class="hero-copy">
       <span class="pill"><i class="dot"></i> Open source · Apache-2.0 · v0.2.2</span>
       <h1>Evaluate Physical AI<br>under <span class="grad">real budgets.</span></h1>
-      <p class="lead">Real MuJoCo physics, a world that keeps moving while your model thinks, and measured VRAM, RAM, latency and energy. Engineered to run entirely on a <strong>4&nbsp;GB VRAM laptop</strong>.</p>
+      <p class="lead">Real MuJoCo physics, a world that keeps moving while your model thinks, and measured VRAM, RAM, latency and energy. Engineered to run on <strong>4&nbsp;GB VRAM laptops onwards</strong>, scaling seamlessly to 8&nbsp;GB, 16&nbsp;GB, 24&nbsp;GB, and multi-GPU workstations.</p>
       <div class="cta">
         <a class="btn primary" id="dlBtn" href="https://github.com/VedantJadhav701/OpenphysicalAI-lab/releases/latest"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3v10.6l3.3-3.3 1.4 1.4L12 16.4l-4.7-4.7 1.4-1.4L11 13.6V3zM5 19h14v2H5z"/></svg><span id="dlLabel">Download for Windows</span></a>
         <a class="btn ghost" id="starHero" href="https://github.com/VedantJadhav701/OpenphysicalAI-lab" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.1 1.2-6.5L2.5 9.4l6.6-.9z"/></svg><span>Star on GitHub</span><em id="starCountHero"></em></a>
@@ -52,7 +52,7 @@
       <ul class="stats">
         <li><b data-count="200" data-suffix="/200">0</b><span>deterministic Phase-1 gate</span></li>
         <li><b data-count="432" data-suffix=" FPS">0</b><span>3D render, RTX 3050 laptop</span></li>
-        <li><b data-count="4" data-suffix=" GB">0</b><span>VRAM reference tier</span></li>
+        <li><b data-count="4" data-suffix=" GB+">0</b><span>VRAM onwards (scales up)</span></li>
         <li><b>100%</b><span>local, no cloud, no account</span></li>
       </ul>
     </div>
@@ -140,7 +140,7 @@
     <div class="wrap">
       <p class="eyebrow rv">Measured, with sample sizes</p>
       <h2 class="rv">Honest numbers. Every one has an N and a confidence interval.</h2>
-      <p class="sub rv">Measured by the author on an HP Victus 15: NVIDIA RTX 3050 Laptop GPU (4 GB), 16 GB RAM, Windows 11, MuJoCo 3.16. Reproduce them with one command.</p>
+      <p class="sub rv">Measured by the author on an HP Victus 15: NVIDIA RTX 3050 Laptop GPU (4 GB reference baseline), 16 GB RAM, Windows 11, MuJoCo 3.16. Runs locally from 4 GB VRAM onwards and scales to any GPU.</p>
 
       <div class="grid3">
         <article class="card rv">
@@ -165,7 +165,7 @@
           <p class="fine">Detection is 88–97%; recovery is ~52% because compounding disturbances exhaust the fixed 3-replan budget.</p>
         </article>
         <article class="card rv">
-          <h3>Models under perturbation</h3><p class="mini">Moderate slip/displacement · N = 50 per model · 4 GB GPU</p>
+          <h3>Models under perturbation</h3><p class="mini">Moderate slip/displacement · N = 50 per model · 4 GB+ GPU onwards</p>
           <div class="models">
             <div><b>qwen2.5:3b</b><span>3.7 s p50 · +0.20 GB VRAM · 58.0% TSR</span></div>
             <div><b>gemma2:2b</b><span>5.3 s p50 · +0.14 GB VRAM · 58.0% TSR</span></div>
@@ -230,7 +230,7 @@ opai run --task pick_place --policy rule --agent recovery \
 cd OpenphysicalAI-lab
 npm install
 npm start</code></pre>
-        <pre data-pane="ollama"><code><span class="c"># recommended 4 GB-tier planners</span>
+        <pre data-pane="ollama"><code><span class="c"># lightweight local planners (4 GB VRAM onwards)</span>
 ollama pull qwen2.5:3b   <span class="c"># 469 ms, 100% TSR</span>
 ollama pull gemma2:2b    <span class="c"># 715 ms, 100% TSR</span></code></pre>
         <pre data-pane="gate"><code>python python/gate1.py   <span class="c"># 200 deterministic scenes</span>
@@ -252,7 +252,7 @@ pytest python/tests</code></pre>
           <tr><td>@VedantJadhav701</td><td>HP Victus 15 · RTX 3050 4 GB</td><td>OPAI-4G</td><td>qwen2.5:3b</td><td>2.57 GB</td><td>493 ms</td><td>100% <small>(83.9–100)</small></td><td>~72 J</td></tr>
           <tr><td>@VedantJadhav701</td><td>HP Victus 15 · RTX 3050 4 GB</td><td>OPAI-4G</td><td>gemma2:2b</td><td>2.36 GB</td><td>751 ms</td><td>100% <small>(83.9–100)</small></td><td>~92 J</td></tr>
           <tr><td>@VedantJadhav701</td><td>HP Victus 15 · RTX 3050 4 GB</td><td>OPAI-4G</td><td>rule-based</td><td>0.55 GB</td><td>0.03 ms</td><td>73% <small>(63.6–80.7, V2, N=100)</small></td><td>5.2 J</td></tr>
-          <tr class="you"><td>You?</td><td>Your GPU / Mac / CPU</td><td>OPAI-4G / 8G / 16G</td><td>Any Ollama model</td><td>measured</td><td>measured</td><td>measured</td><td>measured</td></tr>
+          <tr class="you"><td>You?</td><td>Your GPU / Mac / Workstation</td><td>4 GB VRAM onwards (4G / 8G / 16G / 24G)</td><td>Any Ollama model</td><td>measured</td><td>measured</td><td>measured</td><td>measured</td></tr>
         </tbody></table></div>
       <p class="center rv"><a class="btn ghost" href="https://github.com/VedantJadhav701/OpenphysicalAI-lab#-community-hardware-leaderboard" target="_blank" rel="noopener">Submit your hardware</a></p>
     </div>

@@ -32,7 +32,7 @@ def hardware():
     cls = "CPU-only"
     if g:
         t = g["total_gb"]
-        cls = "OPAI-2G" if t <= 3 else "OPAI-4G" if t <= 6 else "OPAI-8G" if t <= 12 else "OPAI-16G"
+        cls = "OPAI-2G" if t <= 3 else "OPAI-4G" if t <= 6 else "OPAI-8G" if t <= 10 else "OPAI-12G" if t <= 14 else "OPAI-16G" if t <= 20 else "OPAI-24G" if t <= 32 else "OPAI-PRO"
     vm = psutil.virtual_memory()
     return {"os": platform.platform(), "python": sys.version.split()[0], "cpu": platform.processor() or platform.machine(),
             "cores": psutil.cpu_count(logical=True), "ram_total_gb": round(vm.total / 2 ** 30, 1), "ram_free_gb": round(vm.available / 2 ** 30, 1),

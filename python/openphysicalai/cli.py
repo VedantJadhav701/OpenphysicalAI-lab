@@ -33,7 +33,7 @@ def cmd_doctor(_args) -> int:
     if g:
         t = g["total_gb"]
         u = g.get("used_gb", 0.0)
-        cls = "OPAI-2G" if t <= 3 else "OPAI-4G" if t <= 6 else "OPAI-8G" if t <= 12 else "OPAI-16G"
+        cls = "OPAI-2G" if t <= 3 else "OPAI-4G" if t <= 6 else "OPAI-8G" if t <= 10 else "OPAI-12G" if t <= 14 else "OPAI-16G" if t <= 20 else "OPAI-24G" if t <= 32 else "OPAI-PRO"
         gpu_info = {
             **g,
             "free_gb": round(t - u, 2),
