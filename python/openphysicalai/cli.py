@@ -77,17 +77,21 @@ def cmd_compare(args) -> int:
     mc = mcnemar_test(ya, yb)
     bs = paired_bootstrap_difference(ya, yb)
 
-    tsr_a = sum(ya) / len(ya)
-    tsr_b = sum(yb) / len(yb)
+    from .stats import wilson_interval
+    tsr_a = sum(ya) / len(ya) if ya else 0.0
+    tsr_b = sum(yb) / len(yb) if yb else 0.0
+    ci_a = wilson_interval(sum(ya), len(ya))
+    ci_b = wilson_interval(sum(yb), len(yb))
 
     print(f"\n# Paired Comparison Report")
     print(f"- Baseline: {args.baseline} ({da.get('config', {}).get('policy', 'unknown')}, verifier {da.get('config', {}).get('verifier', '?')})")
     print(f"- Treatment: {args.treatment} ({db.get('config', {}).get('policy', 'unknown')}, verifier {db.get('config', {}).get('verifier', '?')})")
     print(f"- Common paired episodes: N={len(common_seeds)}")
-    print(f"- Baseline TSR: {tsr_a*100:.1f}% ({sum(ya)}/{len(ya)})")
-    print(f"- Treatment TSR: {tsr_b*100:.1f}% ({sum(yb)}/{len(yb)})")
+    print(f"- Baseline TSR: {tsr_a*100:.1f}% (95% Wilson CI: {ci_a[0]*100:.1f}% to {ci_a[1]*100:.1f}%), {sum(ya)}/{len(ya)}")
+    print(f"- Treatment TSR: {tsr_b*100:.1f}% (95% Wilson CI: {ci_b[0]*100:.1f}% to {ci_b[1]*100:.1f}%), {sum(yb)}/{len(yb)}")
     print(f"- Mean difference: {bs['diff']*100:+.1f}% (95% bootstrap CI: {bs['ci_lower']*100:+.1f}% to {bs['ci_upper']*100:+.1f}%)")
-    print(f"- McNemar test: statistic={mc['statistic']}, p-value={mc['p_value']} ({'statistically significant (p < 0.05)' if mc['significant_05'] else 'not statistically significant'})\n")
+    p_str = f"{mc['p_value']:.2e}" if mc['p_value'] < 1e-4 else f"{mc['p_value']:.4f}"
+    print(f"- McNemar test: statistic={mc['statistic']:.4f}, p-value={p_str} ({'statistically significant (p < 0.05)' if mc['significant_05'] else 'not statistically significant'})\n")
     return 0
 
 

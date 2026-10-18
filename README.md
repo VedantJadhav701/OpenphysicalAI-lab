@@ -119,20 +119,26 @@ Evaluated with Rule-Based Recovery Agent under moderate failure injection (slip 
 > **Scientific Finding: The ~52% Recovery Bottleneck**:
 > Analysis of all failed episodes reveals that 100% of failures (26/26 in V0, 26/27 in V2) occur not from kinematics or planning crashes, but from `recovery_exhausted` (`plans=4, replans=3, verif_fail=4`). Under persistent stochastic disturbances ($p=0.25$), perturbations continue during recovery attempts. Each recovery action adds physical operations that independently face disturbance, geometrically compounding the risk and exhausting fixed retry budgets. This proves that high-level replanning alone without low-level disturbance rejection is mathematically insufficient in stochastic physical environments.
 
-### 3. The Latency Tax on Dynamic Conveyor Tasks
+### 3. The Latency Tax on Dynamic Conveyor Tasks (Comprehensive Latency Sweep, N=50 per Cell)
 
-Measured on the `dynamic` conveyor task (moving cube at $0.02\text{ m/s}$ along $+y$), comparing reactive baseline against predictive velocity lead compensation:
+Measured on the `dynamic` conveyor task (moving cube at $0.02\text{ m/s}$ along $+y$), sweeping synthetic planner delay ($\Delta t \in \{0, 500, 1000, 2000\}\text{ ms}$) in real-time execution mode. Seeds 0–49 per cell, identical initial configurations. Full JSON receipts saved in `benchmarks/velocity_lead_sweep.json`:
 
-| Agent Architecture | Verifier | Execution Mode | Planner Delay ($\Delta t$) | Velocity Lead | TSR (95% CI, N=50) | Physical Mechanism / Paired Stat |
-|---|---|---|---|---|---|---|
-| **Recovery Agent (Rule)** | V1 | realtime | 0 ms | **OFF** | **52.0%** (38.5%–65.2%) | 26/50: uncompensated descent misses target window |
-| **Recovery Agent (Rule)** | V1 | realtime | 0 ms | **ON** | **100.0%** (92.9%–100.0%) | 50/50: **+48.0% gain** (95% CI: +34.0% to +60.1%, McNemar $p < 10^{-7}$) |
-| **Closed-Loop (Rule)** | V1 | realtime | 1,000 ms (1.0 s) | **OFF** | **0.0%** (0.0%–7.1%) | Cube shifts $\sim 20\text{ mm}$ past gripper capture zone |
-| **Closed-Loop (Rule)** | V1 | realtime | 2,000 ms (2.0 s) | **OFF** | **0.0%** (0.0%–7.1%) | Stale observation causes complete grasp miss |
-| **Recovery (Velocity-Lead)**| V1 | realtime | 1,000 ms (1.0 s) | **ON** | **100.0%** (92.9%–100.0%) | Forward-projected intercept $\hat{v} \cdot (\tau_{\text{plan}} + \tau_{\text{travel}})$ overcomes latency tax |
+| Planner Latency ($\Delta t$) | Condition | TSR (95% Wilson CI, N=50) | Successes | Paired Delta (95% Bootstrap CI) | McNemar Test Statistic & p-value |
+|---|---|---|---|---|---|
+| **0 ms (Baseline)** | **Lead OFF (Reactive)** | **52.0%** (38.5%–65.2%) | 26 / 50 | — | — |
+| **0 ms (Baseline)** | **Lead ON (Predictive)** | **100.0%** (92.9%–100.0%) | 50 / 50 | **+48.0%** (+34.0% to +60.1%) | $\chi^2 = 22.04$, $p = 1.19 \times 10^{-7}$ |
+| **500 ms** | **Lead OFF (Reactive)** | **8.0%** (3.2%–18.8%) | 4 / 50 | — | — |
+| **500 ms** | **Lead ON (Predictive)** | **100.0%** (92.9%–100.0%) | 50 / 50 | **+92.0%** (+84.0% to +98.0%) | $\chi^2 = 44.02$, $p < 10^{-9}$ |
+| **1,000 ms** | **Lead OFF (Reactive)** | **0.0%** (0.0%–7.1%) | 0 / 50 | — | — |
+| **1,000 ms** | **Lead ON (Predictive)** | **100.0%** (92.9%–100.0%) | 50 / 50 | **+100.0%** (+100.0% to +100.0%) | $\chi^2 = 48.02$, $p < 10^{-10}$ |
+| **2,000 ms** | **Lead OFF (Reactive)** | **2.0%** (0.4%–10.5%) | 1 / 50 | — | — |
+| **2,000 ms** | **Lead ON (Predictive)** | **100.0%** (92.9%–100.0%) | 50 / 50 | **+98.0%** (+94.0% to +100.0%) | $\chi^2 = 47.02$, $p < 10^{-10}$ |
 
 > [!NOTE]
-> Physical AI agents relying purely on reactive, uncompensated vision observations fail when planner latency exceeds the physical interaction window. Predictive velocity compensation forward-projects dynamic coordinates, restoring 100% success on the dynamic conveyor task even under 1.0 s planning latency.
+> **Physical Mechanism & Video Citation Reconciliation**:
+> - At **0 ms extra latency**, uncompensated reactive execution achieves **52.0%** because arm travel and downward descent ($\sim 1.05\text{ s}$) cause the gripper to trail behind the moving cube by $21\text{ mm}$, catching it only when initial positions happen to land inside the outer finger chamfer.
+> - At **$\ge 500\text{ ms}$ delay**, reactive success collapses to $\le 8\%$, and at $1,000\text{ ms}$ drops to **0.0%** (as highlighted in the launch video walkthrough).
+> - **Predictive Velocity Lead** forwards-projects dynamic coordinates using an Alpha-Beta kinematic filter ($\hat{v} \cdot [\tau_{\text{plan}} + \tau_{\text{travel}}]$), preserving a rock-solid **100.0% success rate across all latency regimes up to 2,000 ms**. All paired differences are statistically significant at $p < 10^{-6}$.
 
 ---
 

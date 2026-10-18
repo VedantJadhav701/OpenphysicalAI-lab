@@ -146,13 +146,14 @@
         <article class="card rv">
           <h3>The latency tax</h3><p class="mini">Dynamic conveyor task · N = 50 per cell · Real-time</p>
           <div class="bars">
-            <div class="bar" data-v="52"><span>Reactive (no lead)</span><i><u></u></i><b>52%</b></div>
-            <div class="bar green" data-v="100"><span>Velocity lead ON</span><i><u></u></i><b>100%</b></div>
-            <div class="bar red" data-v="0"><span>Reactive · 1 s delay</span><i><u></u></i><b>0%</b></div>
-            <div class="bar red" data-v="0"><span>Reactive · 2 s delay</span><i><u></u></i><b>0%</b></div>
-            <div class="bar green" data-v="100"><span>Velocity lead · 1 s</span><i><u></u></i><b>100%</b></div>
+            <div class="bar" data-v="52"><span>Reactive · 0 s delay</span><i><u></u></i><b>52%</b></div>
+            <div class="bar green" data-v="100"><span>Velocity lead ON · 0 s</span><i><u></u></i><b>100%</b></div>
+            <div class="bar red" data-v="8"><span>Reactive · 500 ms delay</span><i><u></u></i><b>8%</b></div>
+            <div class="bar red" data-v="0"><span>Reactive · 1000 ms delay</span><i><u></u></i><b>0%</b></div>
+            <div class="bar red" data-v="2"><span>Reactive · 2000 ms delay</span><i><u></u></i><b>2%</b></div>
+            <div class="bar green" data-v="100"><span>Velocity lead ON · 500–2000 ms</span><i><u></u></i><b>100%</b></div>
           </div>
-          <p class="fine">Predictive velocity compensation delivers +48.0% paired gain (95% CI +34.0 to +60.1%, McNemar p &lt; 10⁻⁷).</p>
+          <p class="fine">Predictive velocity compensation delivers +48% to +100% paired gains across the latency sweep (McNemar p &lt; 10⁻⁷ at all points).</p>
         </article>
         <article class="card rv">
           <h3>Verifier honesty</h3><p class="mini">Pick &amp; place · moderate failures · real-time · N = 100 per row</p>

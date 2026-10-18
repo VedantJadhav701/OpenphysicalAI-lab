@@ -44,7 +44,7 @@ def mcnemar_test(y_a: List[bool], y_b: List[bool]) -> Dict:
             "c": c,
             "discordant_pairs": disc,
             "statistic": float(k),
-            "p_value": round(p_val, 5),
+            "p_value": p_val if p_val < 1e-4 else round(p_val, 5),
             "significant_05": p_val < 0.05,
             "method": "exact_binomial",
         }
@@ -57,7 +57,7 @@ def mcnemar_test(y_a: List[bool], y_b: List[bool]) -> Dict:
             "c": c,
             "discordant_pairs": disc,
             "statistic": round(stat, 4),
-            "p_value": round(p_val, 5),
+            "p_value": p_val if p_val < 1e-4 else round(p_val, 5),
             "significant_05": p_val < 0.05,
             "method": "continuity_corrected_chi2",
         }

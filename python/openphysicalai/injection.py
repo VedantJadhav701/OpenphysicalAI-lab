@@ -51,6 +51,9 @@ class Injector:
         return False
 
     def slip(self, step: int) -> bool:
+        # If an object was already displaced at this step, do not compound with a concurrent slip
+        if any(e.get("step") == step and e.get("type") == "object_displaced" for e in self.log):
+            return False
         if self._roll():
             self.log.append({"type": "grasp_slip", "step": step})
             return True
