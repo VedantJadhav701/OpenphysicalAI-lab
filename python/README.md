@@ -15,11 +15,9 @@
 
 <br/>
 
-### 🎬 Watch 30-Second Launch Overview
+### 🎬 Interactive Lab Workbench & Real-Time Physical Simulation
 
-https://github.com/user-attachments/assets/OpenPhysicalAI_Lab_Launch_30s.mp4
-
-<video src="OpenPhysicalAI_Lab_Launch_30s.mp4" controls="controls" width="100%" height="auto"></video>
+<img src="demo.gif" alt="OpenPhysicalAI Lab Real-Time Demo" width="100%" />
 
 </div>
 
